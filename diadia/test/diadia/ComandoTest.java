@@ -20,6 +20,7 @@ class ComandoTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		System.out.println("eseguo il setUp()");
 	}
 
 	@AfterEach
@@ -27,8 +28,16 @@ class ComandoTest {
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void test1() {
+		System.out.println("eseguo il test1");
+	}
+	@Test
+	void test2() {
+		System.out.println("eseguo il test2");
+	}
+	@Test
+	void test3() {
+		System.out.println("eseguo il test3");
 	}
 
 }
