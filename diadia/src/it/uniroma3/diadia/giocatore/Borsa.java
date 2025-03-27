@@ -52,7 +52,11 @@ public class Borsa {
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.getAttrezzo(nomeAttrezzo)!=null;
 	}
-	// implementato il seguente metodo in modo tale da rimuovere l'attrezzo desiderato
+	/**
+	 * Rimuove un attrezzo dalla borsa (ricerca in base al nome).
+	 * @param nomeAttrezzo
+	 * @return null se la borsa è vuota, l'attrezzo rimosso altrimenti
+	 */
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		

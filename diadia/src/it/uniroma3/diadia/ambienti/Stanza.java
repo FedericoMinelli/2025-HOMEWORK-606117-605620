@@ -140,7 +140,7 @@ public class Stanza {
 	* Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
 	* @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	*/
-	public boolean hasAttrezzo(String nomeAttrezzo) {
+	public boolean hasAttrezzo(Attrezzo nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;
 		for (Attrezzo attrezzo : this.attrezzi) {
@@ -168,11 +168,23 @@ public class Stanza {
 
 	/**
 	 * Rimuove un attrezzo dalla stanza (ricerca in base al nome).
-	 * @param nomeAttrezzo
+	 * @param Attrezzo
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		// TODO da implementare
+		if(hasAttrezzo(attrezzo)) {
+			for(int i=0;i<this.numeroAttrezzi;i++) {
+				if(this.attrezzi[i].getNome().equals(attrezzo.getNome())) {
+					for(int j=i;j<this.numeroAttrezzi-1;j++) {
+						this.attrezzi[j]=this.attrezzi[j+1];
+					}
+					this.attrezzi[this.numeroAttrezzi-1]=null;
+					this.numeroAttrezzi--;
+					return true;
+				}
+				
+			}
+		}
 		return false;
 	}
 
