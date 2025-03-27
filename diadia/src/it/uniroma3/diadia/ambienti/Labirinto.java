@@ -5,27 +5,61 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Labirinto {
 	
-	private Stanza stanzaCorrente;
-	private Stanza stanzaVincente;
+	private Stanza stanzaIniziale;
+	private Stanza stanzaFinale;
 	
-	public void creaLabirinto() {
+	private Stanza atrio;
+	private Stanza aulaN11;
+	private Stanza aulaN10;
+	private Stanza laboratorio;
+	private Stanza biblioteca;
+	
+	private Attrezzo lanterna;
+	private Attrezzo osso;
+	
+	public Labirinto() {
+		init();
+	}
+	
+	/**
+     * Crea tutte le stanze e le porte di collegamento
+     */
+	private void init() {
+		creaAttrezzi();
+		creaStanze();
+		collegaStanze();
+		poniAttrezzi();
+		setStanzaIniziale();
+		setStanzaFinale();
+		
+	}
+	
+	/**
+	 * crea gli attrezzi
+	 */
+	public void creaAttrezzi() {
 
-		/**
-	     * Crea tutte le stanze e le porte di collegamento
-	     */
-		
-		/* crea gli attrezzi */
-    	Attrezzo lanterna = new Attrezzo("lanterna",3);
-		Attrezzo osso = new Attrezzo("osso",1);
+    	lanterna = new Attrezzo("lanterna",3);
+		osso = new Attrezzo("osso",1);
+	}
+	
+	/**
+	 * crea stanze del labirinto
+	 */
+	public void creaStanze() {
     	
-		/* crea stanze del labirinto */
-		Stanza atrio = new Stanza("Atrio");
-		Stanza aulaN11 = new Stanza("Aula N11");
-		Stanza aulaN10 = new Stanza("Aula N10");
-		Stanza laboratorio = new Stanza("Laboratorio Campus");
-		Stanza biblioteca = new Stanza("Biblioteca");
+		atrio = new Stanza("Atrio");
+		aulaN11 = new Stanza("Aula N11");
+		aulaN10 = new Stanza("Aula N10");
+		laboratorio = new Stanza("Laboratorio Campus");
+		biblioteca = new Stanza("Biblioteca");
 		
-		/* collega le stanze */
+	}
+	
+	/**
+	 * collega le stanze
+	 */
+	public void collegaStanze() {
 		
 		atrio.impostaStanzaAdiacente("nord", biblioteca);
 		atrio.impostaStanzaAdiacente("est", aulaN11);
@@ -49,26 +83,48 @@ public class Labirinto {
 //		laboratorio.impostaStanzaAdiacente("est", atrio);
 //		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);	// effetto pac-man
 //		biblioteca.impostaStanzaAdiacente("sud", atrio);
+		
+	}
+	
+	/**
+	 * pone gli attrezzi nelle stanze
+	 */
+	public void poniAttrezzi() {
 
-        /* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
 		atrio.addAttrezzo(osso);
-
-		// il gioco comincia nell'atrio
-        stanzaCorrente = atrio;  
-		stanzaVincente = biblioteca;
-		
-    }
+	}
 	
-	public Stanza getStanzaVincente() {
-		return stanzaVincente;
+	/**
+	 * il gioco comincia nell'atrio
+	 */
+	public void setStanzaIniziale() {
+		stanzaIniziale = atrio;
+	}
+	
+	/**
+	 * il gioco finisce nella biblioteca
+	 */
+	public void setStanzaFinale() {
+		stanzaFinale = biblioteca;
 	}
 
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
+	/**
+	 * getter di stanzaIniziale
+	 * @return	stanzaIniziale
+	 */
+	public Stanza getStanzaIniziale() {
+		return stanzaIniziale;
 	}
 
-	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
+	/**
+	 * getter di stanzaFinale
+	 * @return	stanzaFinale
+	 */
+	public Stanza getStanzaFinale() {
+		return stanzaFinale;
 	}
+	
+	
+ 
 }

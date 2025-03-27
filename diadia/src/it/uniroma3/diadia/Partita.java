@@ -18,13 +18,16 @@ public class Partita {
 	static final private int CFU_INIZIALI = 20;
 	
 	private Labirinto labirinto;	// nuova variabile di istanza labirinto
+	private Stanza stanzaCorrente;
+	private Stanza stanzaVincente;
 
 	private boolean finita;
 	private int cfu;
 	
 	public Partita(){
-		labirinto = new Labirinto();
-		labirinto.creaLabirinto();		// creazione del labirinto, per farlo -> chiamata a classe Labirinto
+		this.labirinto = new Labirinto();	// creazione riferimento di un'istanza Labirinto
+		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
+		stanzaVincente = labirinto.getStanzaFinale();		// prendo da labirinto l'informazione della stanza dove il gioco finisce
 		this.finita = false;
 		this.cfu = CFU_INIZIALI;
 	}
@@ -34,7 +37,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return labirinto.getStanzaCorrente() == labirinto.getStanzaVincente();	// ho riadattato il return data la nuova variabile di istanza
+		return getStanzaCorrente() == getStanzaVincente();	
 	}
 
 	/**
@@ -64,5 +67,30 @@ public class Partita {
 
 	public void setCfu(int cfu) {
 		this.cfu = cfu;		
-	}	
+	}
+	
+	/**
+	 * getter della stanza vincente
+	 * @return stanzaVincente inizializzata tramite labirinto
+	 */
+	public Stanza getStanzaVincente() {
+		return stanzaVincente;
+	}
+
+	/**
+	 * Aggiorna la stanza corrente
+	 * @param stanzaCorrente
+	 */
+	public void setStanzaCorrente(Stanza stanzaCorrente) {
+		this.stanzaCorrente = stanzaCorrente;
+	}
+
+	/**
+	 * getter della stanza corrente
+	 * @return stanzaCorrente, ad inizio gioco ha un riferimento ottenuto tramite labirinto.getStanzaIniziale, 
+	 * <p>poi cambia a seconda delle scelte del giocatore
+	 */
+	public Stanza getStanzaCorrente() {
+		return this.stanzaCorrente;
+	}
 }
