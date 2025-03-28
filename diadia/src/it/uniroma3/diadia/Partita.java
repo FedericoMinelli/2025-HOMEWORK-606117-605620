@@ -2,6 +2,7 @@ package it.uniroma3.diadia;
 
 
 import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.giocatore.Giocatore;
 import it.uniroma3.diadia.ambienti.Labirinto;
 // import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -14,22 +15,23 @@ import it.uniroma3.diadia.ambienti.Labirinto;
  */
 
 public class Partita {
-
-	static final private int CFU_INIZIALI = 20;
 	
 	private Labirinto labirinto;	// nuova variabile di istanza labirinto
+	private Giocatore giocatore;	// nuova variabile di istanza giocatore
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
 	private boolean finita;
-	private int cfu;
 	
 	public Partita(){
 		this.labirinto = new Labirinto();	// creazione riferimento di un'istanza Labirinto
 		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
 		stanzaVincente = labirinto.getStanzaFinale();		// prendo da labirinto l'informazione della stanza dove il gioco finisce
+		
+		this.giocatore = new Giocatore();	// creazione riferimento di un'istanza Giocatore
+		
 		this.finita = false;
-		this.cfu = CFU_INIZIALI;
+		
 	}
 
 	/**
@@ -45,7 +47,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (cfu == 0);
+		return finita || vinta() || (giocatore.getCfu() == 0);
 	}
 	
 	// aggiunto getter di labirinto
@@ -59,14 +61,6 @@ public class Partita {
 	 */
 	public void setFinita() {
 		this.finita = true;
-	}
-
-	public int getCfu() {
-		return this.cfu;
-	}
-
-	public void setCfu(int cfu) {
-		this.cfu = cfu;		
 	}
 	
 	/**
@@ -93,4 +87,13 @@ public class Partita {
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}
+	
+	/**
+	 * aggiunto getter di giocatore
+	 * @return giocatore
+	 */
+	public Giocatore getGiocatore() {
+		return giocatore;
+	}
+	
 }
