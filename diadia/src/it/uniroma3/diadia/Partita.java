@@ -97,3 +97,12 @@ public class Partita {
 	}
 	
 }
+/* public int getCfu() {
+return this.cfu;
+}
+public void setCfu() {
+this.cfu=cfu;
+}
+public String toString() {
+return this.getStringa 
+} */

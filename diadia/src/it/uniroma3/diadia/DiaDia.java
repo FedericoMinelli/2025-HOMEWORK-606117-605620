@@ -29,7 +29,7 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	
+
 	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
 
 	private Partita partita;
@@ -47,7 +47,7 @@ public class DiaDia {
 		do		
 			istruzione = scannerDiLinee.nextLine();
 		while (!processaIstruzione(istruzione));
-		
+
 		scannerDiLinee.close();		// chiusura dello scanner
 	}   
 
@@ -68,25 +68,27 @@ public class DiaDia {
 		}
 		else if (comandoDaEseguire.getNome().equals("vai"))
 			this.vai(comandoDaEseguire.getParametro());
-		
+
 		else if (comandoDaEseguire.getNome().equals("aiuto"))
 			this.aiuto();
-		
+
 		else if (comandoDaEseguire.getNome().equals("prendi"))
 			this.prendi(comandoDaEseguire.getParametro());
-		
-//		else if (comandoDaEseguire.getNome().equals("posa"))
-//			this.posa(comandoDaEseguire.getParametro());
-		
+
+		//		else if (comandoDaEseguire.getNome().equals("posa"))
+		//			this.posa(comandoDaEseguire.getParametro());
+
 		else
 			System.out.println("Comando sconosciuto");
-		
-		if (this.partita.vinta()) {
-			System.out.println("Hai vinto!");
+		if(this.partita.isFinita()) {
+			if (this.partita.vinta()) {
+				System.out.println("Hai vinto!");
+			}
 			return true;
 		}
-		else
-			return false;
+
+
+		return false;
 	}   
 
 	// implementazioni dei comandi dell'utente:
@@ -118,12 +120,12 @@ public class DiaDia {
 		}
 		System.out.println(partita.getStanzaCorrente().getDescrizione());
 	}
-	
+
 	/**
 	 * comando Prendi
 	 */
 	private void prendi(String nomeAttrezzo) {
-		
+
 		if(nomeAttrezzo==null) {
 			System.out.println("Quale attrezzo vuoi prendere ? (scrivi 'prendi nome_attrezzo')");
 			for(Attrezzo a : this.partita.getStanzaCorrente().getAttrezzi()) {
@@ -137,21 +139,21 @@ public class DiaDia {
 			if(a!=null) {
 				this.partita.getGiocatore().getBorsa().addAttrezzo(a);
 				this.partita.getStanzaCorrente().removeAttrezzo(a);
-				
+
 				System.out.println("Attrezzo aggiunto alla borsa correttamente");
 			}
 			else {
 				System.out.println("Attrezzo non trovato");
 				System.out.println(partita.getStanzaCorrente().getDescrizione());
 			}
-			
+
 		}
-		
-		
-		
-		
+
+
+
+
 	}
-	
+
 	/**
 	 * comando Posa
 	 */

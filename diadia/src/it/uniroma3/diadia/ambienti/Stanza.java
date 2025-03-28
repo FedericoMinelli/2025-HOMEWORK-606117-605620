@@ -42,7 +42,8 @@ public class Stanza {
         this.attrezzi = new Attrezzo[NUMERO_MASSIMO_ATTREZZI];
     }
 
-    /**
+   
+	/**
      * Imposta una stanza adiacente.
      *
      * @param direzione direzione in cui sara' posta la stanza adiacente.
@@ -143,8 +144,8 @@ public class Stanza {
 	public boolean hasAttrezzo(String nomeAttrezzo) {		// prima era Attrezzo e non String
 		boolean trovato;
 		trovato = false;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
+		for (int i=0; i<this.numeroAttrezzi; i++) {
+			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
 				trovato = true;
 		}
 		return trovato;
