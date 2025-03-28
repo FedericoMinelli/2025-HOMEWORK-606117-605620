@@ -4,6 +4,7 @@ package it.uniroma3.diadia;
 import java.util.Scanner;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Borsa;
 
 
 /**
@@ -30,7 +31,7 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 
 	private Partita partita;
 
@@ -75,8 +76,8 @@ public class DiaDia {
 		else if (comandoDaEseguire.getNome().equals("prendi"))
 			this.prendi(comandoDaEseguire.getParametro());
 
-		//		else if (comandoDaEseguire.getNome().equals("posa"))
-		//			this.posa(comandoDaEseguire.getParametro());
+		else if (comandoDaEseguire.getNome().equals("posa"))
+			this.posa(comandoDaEseguire.getParametro());
 
 		else
 			System.out.println("Comando sconosciuto");
@@ -116,9 +117,10 @@ public class DiaDia {
 		else {
 			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getGiocatore().getCfu();		// aggiunta chiamata al metodo getGiocatore() per poter accedere ai cfu
-			this.partita.getGiocatore().setCfu(cfu--);		// idem a sopra
+			this.partita.getGiocatore().setCfu(--cfu);		// ora i cfu vengono scalati correttamente
 		}
 		System.out.println(partita.getStanzaCorrente().getDescrizione());
+		System.out.println(partita.getGiocatore().getBorsa());
 	}
 
 	/**
@@ -126,8 +128,11 @@ public class DiaDia {
 	 */
 	private void prendi(String nomeAttrezzo) {
 
-		if(nomeAttrezzo==null) {
-			System.out.println("Quale attrezzo vuoi prendere ? (scrivi 'prendi nome_attrezzo')");
+		if(this.partita.getGiocatore().getBorsa().getPeso() == this.partita.getGiocatore().getBorsa().getPesoMax())
+			System.out.println("La borsa è al completo!");
+		
+		else if(nomeAttrezzo==null) {
+			System.out.println("Quale attrezzo vuoi prendere ? ");
 			for(Attrezzo a : this.partita.getStanzaCorrente().getAttrezzi()) {
 				if(a!=null)
 					System.out.print(a + " ");
@@ -137,26 +142,64 @@ public class DiaDia {
 		else{
 			Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			if(a!=null) {
-				this.partita.getGiocatore().giocatoreAddAttrezzo(a);
-				this.partita.getStanzaCorrente().removeAttrezzo(a);
-
-				System.out.println("Attrezzo aggiunto alla borsa correttamente");
+				// controllo se l'aggiunta si può fare
+				if(this.partita.getGiocatore().getPesoBorsa() + a.getPeso() > this.partita.getGiocatore().getBorsa().getPesoMax())
+					System.out.println("Questo attrezzo è troppo pesante e non può essere aggiunto, prova con un altro!");
+				else {
+					this.partita.getGiocatore().giocatoreAddAttrezzo(a);	// aggiungo a borsa
+					this.partita.getStanzaCorrente().removeAttrezzo(a);		// rimuovo da stanza
+					System.out.println("Operazione avvenuta correttamente!!");
+				}				
 			}
-			else {
-				System.out.println("Attrezzo non trovato");
-				System.out.println(partita.getStanzaCorrente().getDescrizione());
-			}
-
+			else 
+				System.out.println("Attrezzo non trovato");	
+			
+			System.out.println(partita.getStanzaCorrente().getDescrizione());
+			System.out.println(partita.getGiocatore().getBorsa());		
 		}
-
-
-
-
+			
 	}
 
 	/**
 	 * comando Posa
 	 */
+	private void posa(String nomeAttrezzo) {
+		
+		// controllo se la borsa è vuota
+		if(this.partita.getGiocatore().getBorsa().isEmpty()) {
+			
+			System.out.println("Nessun attrezzo da posare");
+			System.out.println(partita.getStanzaCorrente().getDescrizione());
+			System.out.println(partita.getGiocatore().getBorsa());			
+		}
+		
+		else if(nomeAttrezzo == null) {
+			
+			System.out.println("Quale attrezzo vuoi posare ? ");
+			System.out.println(this.partita.getGiocatore().getBorsa());
+		}
+		
+		else {
+			// salvo dentro un riferimento 'borsa' la borsa della partita
+			Borsa borsa = this.partita.getGiocatore().getBorsa();	
+			
+			// se la stanza ha posto posso posare l'attrezzo, altrimenti no
+			if(partita.getStanzaCorrente().getNumeroAttrezzi() < partita.getStanzaCorrente().getAttrezzi().length) {
+				
+				this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo));		// aggiungo in stanza
+				this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);			// rimuovo da borsa
+				
+				System.out.println("Operazione avvenuta correttamente!!");
+				
+			}
+			else
+				System.out.println("La stanza è al completo, non puoi posare l'attrezzo qui!");
+			
+			System.out.println(partita.getStanzaCorrente().getDescrizione());
+			System.out.println(partita.getGiocatore().getBorsa());
+		}
+		
+	}
 
 	/**
 	 * Comando "Fine".

@@ -23,8 +23,11 @@ public class Giocatore {
 		this.cfu = cfu;		
 	}
 	
-	/* implementato metodo per salvare gli attrezzi nella variabile di istanza borsa 
-	 * ...da migliorare probabilmente in seguito... */
+	/**
+	 * Aggiunge un'attrezzo alla borsa di giocatore
+	 * @param attrezzo
+	 * @return	borsa con nuovo attrezzo aggiunto
+	 */
 	public boolean giocatoreAddAttrezzo(Attrezzo attrezzo) {
 		 return borsa.addAttrezzo(attrezzo);
 	}
@@ -32,6 +35,15 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return borsa;
 	}
+	
+	/**
+	 * Getter del peso dela borsa
+	 * @return peso attuale della borsa
+	 */
+	public int getPesoBorsa() {
+		return borsa.getPeso();
+	}
+	
 	
 	
 }

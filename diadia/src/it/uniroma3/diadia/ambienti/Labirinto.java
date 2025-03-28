@@ -16,6 +16,7 @@ public class Labirinto {
 	
 	private Attrezzo lanterna;
 	private Attrezzo osso;
+	private Attrezzo pietra; // prova
 	
 	public Labirinto() {
 		init();
@@ -41,6 +42,7 @@ public class Labirinto {
 
     	lanterna = new Attrezzo("lanterna",3);
 		osso = new Attrezzo("osso",1);
+		pietra = new  Attrezzo("pietra", 7);	// prova
 	}
 	
 	/**
@@ -93,6 +95,7 @@ public class Labirinto {
 
 		aulaN10.addAttrezzo(lanterna);
 		atrio.addAttrezzo(osso);
+		atrio.addAttrezzo(pietra);	// prova
 	}
 	
 	/**

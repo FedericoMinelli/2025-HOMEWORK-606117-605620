@@ -197,4 +197,11 @@ public class Stanza {
 	    return direzioni;
     }
 
+
+	public int getNumeroAttrezzi() {
+		return numeroAttrezzi;
+	}
+	
+	
+
 }
