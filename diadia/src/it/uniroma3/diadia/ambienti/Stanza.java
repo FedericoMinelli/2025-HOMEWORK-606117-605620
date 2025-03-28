@@ -160,9 +160,9 @@ public class Stanza {
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))		// ripartire da qui per risolvere NullPointerExeption, sembra che attrezzi non venga inizializzato
-				attrezzoCercato = attrezzo;
+		for (int i=0; i<this.numeroAttrezzi; i++) {
+			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))		// ripartire da qui per risolvere NullPointerExeption, sembra che attrezzi non venga inizializzato
+				attrezzoCercato = attrezzi[i];
 		}
 		return attrezzoCercato;	
 	}

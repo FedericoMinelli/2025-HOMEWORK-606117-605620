@@ -137,7 +137,7 @@ public class DiaDia {
 		else{
 			Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			if(a!=null) {
-				this.partita.getGiocatore().getBorsa().addAttrezzo(a);
+				this.partita.getGiocatore().giocatoreAddAttrezzo(a);
 				this.partita.getStanzaCorrente().removeAttrezzo(a);
 
 				System.out.println("Attrezzo aggiunto alla borsa correttamente");
