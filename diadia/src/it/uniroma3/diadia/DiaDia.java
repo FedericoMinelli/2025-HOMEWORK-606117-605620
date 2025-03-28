@@ -60,6 +60,8 @@ public class DiaDia {
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire = new Comando(istruzione);
 
+		if(comandoDaEseguire.getNome()==null)
+			return false;
 		if (comandoDaEseguire.getNome().equals("fine")) {
 			this.fine(); 
 			return true;
