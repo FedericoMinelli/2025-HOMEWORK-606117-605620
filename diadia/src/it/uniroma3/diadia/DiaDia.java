@@ -3,6 +3,7 @@ package it.uniroma3.diadia;
 
 import java.util.Scanner;
 import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 
 /**
@@ -62,16 +63,27 @@ public class DiaDia {
 		if (comandoDaEseguire.getNome().equals("fine")) {
 			this.fine(); 
 			return true;
-		} else if (comandoDaEseguire.getNome().equals("vai"))
+		}
+		else if (comandoDaEseguire.getNome().equals("vai"))
 			this.vai(comandoDaEseguire.getParametro());
+		
 		else if (comandoDaEseguire.getNome().equals("aiuto"))
 			this.aiuto();
+		
+		else if (comandoDaEseguire.getNome().equals("prendi"))
+			this.prendi(comandoDaEseguire.getParametro());
+		
+//		else if (comandoDaEseguire.getNome().equals("posa"))
+//			this.posa(comandoDaEseguire.getParametro());
+		
 		else
 			System.out.println("Comando sconosciuto");
+		
 		if (this.partita.vinta()) {
 			System.out.println("Hai vinto!");
 			return true;
-		} else
+		}
+		else
 			return false;
 	}   
 
@@ -104,6 +116,43 @@ public class DiaDia {
 		}
 		System.out.println(partita.getStanzaCorrente().getDescrizione());
 	}
+	
+	/**
+	 * comando Prendi
+	 */
+	private void prendi(String nomeAttrezzo) {
+		
+		if(nomeAttrezzo==null) {
+			System.out.println("Quale attrezzo vuoi prendere ? (scrivi 'prendi nome_attrezzo')");
+			for(Attrezzo a : this.partita.getStanzaCorrente().getAttrezzi()) {
+				if(a!=null)
+					System.out.print(a + " ");
+			}
+			System.out.println();	
+		}
+		else{
+			Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+			if(a!=null) {
+				this.partita.getGiocatore().getBorsa().addAttrezzo(a);
+				this.partita.getStanzaCorrente().removeAttrezzo(a);
+				
+				System.out.println("Attrezzo aggiunto alla borsa correttamente");
+			}
+			else {
+				System.out.println("Attrezzo non trovato");
+				System.out.println(partita.getStanzaCorrente().getDescrizione());
+			}
+			
+		}
+		
+		
+		
+		
+	}
+	
+	/**
+	 * comando Posa
+	 */
 
 	/**
 	 * Comando "Fine".

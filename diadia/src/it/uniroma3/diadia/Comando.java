@@ -42,6 +42,7 @@ public class Comando {
         return this.parametro;
     }
 
+    /* a cosa servi?? */
     public boolean sconosciuto() {
         return (this.nome == null);
     }
