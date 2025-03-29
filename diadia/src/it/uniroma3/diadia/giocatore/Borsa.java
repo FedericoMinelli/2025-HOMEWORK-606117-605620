@@ -104,7 +104,7 @@ public class Borsa {
 		if(!isEmpty()) {
 			for(int i=0; i<this.numeroAttrezzi;i++) {
 				if(this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-					this.attrezzi[i]=a;
+					a=this.attrezzi[i];    // prima era this.attrezzi[i]=a  però con il test dava problemi
 					for(int j=i; j<this.numeroAttrezzi-1;j++) {
 						this.attrezzi[j]=this.attrezzi[j+1];
 					}

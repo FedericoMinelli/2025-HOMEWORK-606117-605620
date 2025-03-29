@@ -42,8 +42,8 @@ class PartitaTest {
 		partita.setStanzaCorrente(partita.getStanzaVincente());
 		assertTrue(this.partita.vinta());
 	}
-	/*@Test
-	void testPartitaPersa() {
+	//@Test
+	/*void testPartitaPersa() {
 		partita.setCfu(0);
 		assertFalse(this.partita.vinta());
 	}*/
