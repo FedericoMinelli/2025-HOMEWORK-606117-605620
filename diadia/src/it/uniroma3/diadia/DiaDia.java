@@ -81,14 +81,15 @@ public class DiaDia {
 
 		else
 			System.out.println("Comando sconosciuto");
+		
 		if(this.partita.isFinita()) {
 			if (this.partita.vinta()) {
 				System.out.println("Hai vinto!");
 			}
+			else
+				System.out.println("Hai perso!");	// ora c'è una stampa anche quando si perde
 			return true;
 		}
-
-
 		return false;
 	}   
 
@@ -121,18 +122,20 @@ public class DiaDia {
 		}
 		System.out.println(partita.getStanzaCorrente().getDescrizione());
 		System.out.println(partita.getGiocatore().getBorsa());
+		System.out.println(partita);	// printa i cfu attuali
 	}
 
 	/**
 	 * comando Prendi
 	 */
 	private void prendi(String nomeAttrezzo) {
-
-		if(this.partita.getGiocatore().getBorsa().getPeso() == this.partita.getGiocatore().getBorsa().getPesoMax())
+		// se peso della borsa è uguale al suo massimo allora non posso aggiungere un nuovo attrezzo
+		if(this.partita.getGiocatore().getBorsa().getPeso() == this.partita.getGiocatore().getBorsa().getPesoMax()) {
 			System.out.println("La borsa è al completo!");
-		
+		}
 		else if(nomeAttrezzo==null) {
 			System.out.println("Quale attrezzo vuoi prendere ? ");
+			// stampa tutti gli attrezzi nella stanza
 			for(Attrezzo a : this.partita.getStanzaCorrente().getAttrezzi()) {
 				if(a!=null)
 					System.out.print(a + " ");
@@ -140,6 +143,9 @@ public class DiaDia {
 			System.out.println();	
 		}
 		else{
+			/* si potrebbe fare un altro if che sfrutta hasAttrezzo per vedere se
+			 * l'attrezzo da prendere esiste ma lo stesso compito viene svolto da
+			 * getAttrezzo(nomeAttrezzo) perché restituisce null quando non lo trova*/
 			Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			if(a!=null) {
 				// controllo se l'aggiunta si può fare
@@ -155,16 +161,15 @@ public class DiaDia {
 				System.out.println("Attrezzo non trovato");	
 			
 			System.out.println(partita.getStanzaCorrente().getDescrizione());
-			System.out.println(partita.getGiocatore().getBorsa());		
+			System.out.println(partita.getGiocatore().getBorsa());
+			System.out.println(partita);	// printa i cfu attuali
 		}
-			
 	}
 
 	/**
 	 * comando Posa
 	 */
 	private void posa(String nomeAttrezzo) {
-		
 		// controllo se la borsa è vuota
 		if(this.partita.getGiocatore().getBorsa().isEmpty()) {
 			
@@ -172,33 +177,32 @@ public class DiaDia {
 			System.out.println(partita.getStanzaCorrente().getDescrizione());
 			System.out.println(partita.getGiocatore().getBorsa());			
 		}
-		
 		else if(nomeAttrezzo == null) {
-			
 			System.out.println("Quale attrezzo vuoi posare ? ");
-			System.out.println(this.partita.getGiocatore().getBorsa());
+			System.out.println(this.partita.getGiocatore().getBorsa());		// stampa tutti gli attrezzi in borsa
 		}
-		
 		else {
 			// salvo dentro un riferimento 'borsa' la borsa della partita
 			Borsa borsa = this.partita.getGiocatore().getBorsa();	
-			
-			// se la stanza ha posto posso posare l'attrezzo, altrimenti no
-			if(partita.getStanzaCorrente().getNumeroAttrezzi() < partita.getStanzaCorrente().getAttrezzi().length) {
-				
-				this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo));		// aggiungo in stanza
-				this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);			// rimuovo da borsa
-				
-				System.out.println("Operazione avvenuta correttamente!!");
-				
+			if(borsa.hasAttrezzo(nomeAttrezzo)) {
+				// se la stanza ha posto posso posare l'attrezzo, altrimenti no
+				if(partita.getStanzaCorrente().getNumeroAttrezzi() < partita.getStanzaCorrente().getAttrezzi().length) {
+					
+					this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo));		// aggiungo in stanza
+					this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);			// rimuovo da borsa
+					
+					System.out.println("Operazione avvenuta correttamente!!");
+				}
+				else
+					System.out.println("La stanza è al completo, non puoi posare l'attrezzo qui!");
 			}
 			else
-				System.out.println("La stanza è al completo, non puoi posare l'attrezzo qui!");
+				System.out.println("Attrezzo non trovato!");
 			
 			System.out.println(partita.getStanzaCorrente().getDescrizione());
 			System.out.println(partita.getGiocatore().getBorsa());
-		}
-		
+			System.out.println(partita);	// printa i cfu attuali
+		}		
 	}
 
 	/**

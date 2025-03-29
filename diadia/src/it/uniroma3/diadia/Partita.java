@@ -15,23 +15,23 @@ import it.uniroma3.diadia.ambienti.Labirinto;
  */
 
 public class Partita {
-	
+
 	private Labirinto labirinto;	// nuova variabile di istanza labirinto
 	private Giocatore giocatore;	// nuova variabile di istanza giocatore
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
 	private boolean finita;
-	
+
 	public Partita(){
 		this.labirinto = new Labirinto();	// creazione riferimento di un'istanza Labirinto
 		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
 		stanzaVincente = labirinto.getStanzaFinale();		// prendo da labirinto l'informazione della stanza dove il gioco finisce
-		
+
 		this.giocatore = new Giocatore();	// creazione riferimento di un'istanza Giocatore
-		
+
 		this.finita = false;
-		
+
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class Partita {
 	public boolean isFinita() {
 		return finita || vinta() || (giocatore.getCfu() == 0);
 	}
-	
+
 	// aggiunto getter di labirinto
 	public Labirinto getLabirinto() {
 		return labirinto;
@@ -62,7 +62,7 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
-	
+
 	/**
 	 * getter della stanza vincente
 	 * @return stanzaVincente inizializzata tramite labirinto
@@ -87,7 +87,7 @@ public class Partita {
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}
-	
+
 	/**
 	 * aggiunto getter di giocatore
 	 * @return giocatore
@@ -95,14 +95,11 @@ public class Partita {
 	public Giocatore getGiocatore() {
 		return giocatore;
 	}
-	
+
+	/**
+	 * implementato il toString per classe partita, stampa i cfu attuali
+	 */
+	public String toString() {
+		return "CFU attuali: " + this.getGiocatore().getCfu();
+	}
 }
-/* public int getCfu() {
-return this.cfu;
-}
-public void setCfu() {
-this.cfu=cfu;
-}
-public String toString() {
-return this.getStringa 
-} */
