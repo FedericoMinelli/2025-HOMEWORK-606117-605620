@@ -37,13 +37,10 @@ public class Giocatore {
 	}
 	
 	/**
-	 * Getter del peso dela borsa
+	 * Getter del peso della borsa
 	 * @return peso attuale della borsa
 	 */
 	public int getPesoBorsa() {
 		return borsa.getPeso();
 	}
-	
-	
-	
 }
