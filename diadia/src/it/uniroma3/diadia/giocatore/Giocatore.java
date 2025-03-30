@@ -5,7 +5,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Giocatore {
 
-	static final private int CFU_INIZIALI = 3;
+	static final private int CFU_INIZIALI = 20;
 	
 	private Borsa borsa;
 	private int cfu;
@@ -26,10 +26,19 @@ public class Giocatore {
 	/**
 	 * Aggiunge un'attrezzo alla borsa di giocatore
 	 * @param attrezzo
-	 * @return	borsa con nuovo attrezzo aggiunto
+	 * @return	true se attrezzo viene aggiunto, false altrimenti
 	 */
 	public boolean giocatoreAddAttrezzo(Attrezzo attrezzo) {
 		 return borsa.addAttrezzo(attrezzo);
+	}
+	
+	/**
+	 * Rimuove un attrezzo dalla borsa di giocatore
+	 * @param attrezzo
+	 * @return l'attrezzo rimosso se va a buon fine, null altrimenti
+	 */
+	public Attrezzo giocatoreRemoveAttrezzo(Attrezzo attrezzo) {
+		 return borsa.removeAttrezzo(attrezzo.getNome());
 	}
 
 	public Borsa getBorsa() {
@@ -42,5 +51,10 @@ public class Giocatore {
 	 */
 	public int getPesoBorsa() {
 		return borsa.getPeso();
+	}
+	
+	// Stampa la borsa del giocatore e i cfu attuali
+	public String toString() {
+		return this.borsa.toString() + "\nCFU attuali: " + this.getCfu();
 	}
 }

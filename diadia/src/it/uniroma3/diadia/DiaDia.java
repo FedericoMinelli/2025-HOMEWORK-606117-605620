@@ -120,9 +120,8 @@ public class DiaDia {
 			int cfu = this.partita.getGiocatore().getCfu();		// aggiunta chiamata al metodo getGiocatore() per poter accedere ai cfu
 			this.partita.getGiocatore().setCfu(--cfu);		// ora i cfu vengono scalati correttamente
 		}
-		System.out.println(partita.getStanzaCorrente().getDescrizione());
-		System.out.println(partita.getGiocatore().getBorsa());
-		System.out.println(partita);	// printa i cfu attuali
+		System.out.println(this.partita.getStanzaCorrente().getDescrizione());
+		System.out.println(this.partita.getGiocatore());		// printa il contentuto della borsa e i cfu attuali
 	}
 
 	/**
@@ -146,23 +145,21 @@ public class DiaDia {
 			/* si potrebbe fare un altro if che sfrutta hasAttrezzo per vedere se
 			 * l'attrezzo da prendere esiste ma lo stesso compito viene svolto da
 			 * getAttrezzo(nomeAttrezzo) perché restituisce null quando non lo trova*/
-			Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+			Attrezzo a = this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			if(a!=null) {
-				// controllo se l'aggiunta si può fare
-				if(this.partita.getGiocatore().getPesoBorsa() + a.getPeso() > this.partita.getGiocatore().getBorsa().getPesoMax())
-					System.out.println("Questo attrezzo è troppo pesante e non può essere aggiunto, prova con un altro!");
-				else {
-					this.partita.getGiocatore().giocatoreAddAttrezzo(a);	// aggiungo a borsa
+				// controllo se l'aggiunta si può fare e in caso aggiungo
+				if(this.partita.getGiocatore().giocatoreAddAttrezzo(a)) {
 					this.partita.getStanzaCorrente().removeAttrezzo(a);		// rimuovo da stanza
 					System.out.println("Operazione avvenuta correttamente!!");
-				}				
+				}
+				else 
+					System.out.println("Questo attrezzo è troppo pesante e non può essere aggiunto, prova con un altro!");				
 			}
 			else 
 				System.out.println("Attrezzo non trovato");	
 			
-			System.out.println(partita.getStanzaCorrente().getDescrizione());
-			System.out.println(partita.getGiocatore().getBorsa());
-			System.out.println(partita);	// printa i cfu attuali
+			System.out.println(this.partita.getStanzaCorrente().getDescrizione());
+			System.out.println(this.partita.getGiocatore());		// printa il contentuto della borsa e i cfu attuali
 		}
 	}
 
@@ -174,8 +171,8 @@ public class DiaDia {
 		if(this.partita.getGiocatore().getBorsa().isEmpty()) {
 			
 			System.out.println("Nessun attrezzo da posare");
-			System.out.println(partita.getStanzaCorrente().getDescrizione());
-			System.out.println(partita.getGiocatore().getBorsa());			
+			System.out.println(this.partita.getStanzaCorrente().getDescrizione());
+			System.out.println(this.partita.getGiocatore().getBorsa());		// printa il contenuto della borsa		
 		}
 		else if(nomeAttrezzo == null) {
 			System.out.println("Quale attrezzo vuoi posare ? ");
@@ -186,11 +183,8 @@ public class DiaDia {
 			Borsa borsa = this.partita.getGiocatore().getBorsa();	
 			if(borsa.hasAttrezzo(nomeAttrezzo)) {
 				// se la stanza ha posto posso posare l'attrezzo, altrimenti no
-				if(partita.getStanzaCorrente().getNumeroAttrezzi() < partita.getStanzaCorrente().getAttrezzi().length) {
-					
-					this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo));		// aggiungo in stanza
-					this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);			// rimuovo da borsa
-					
+				if(this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo))) {
+					this.partita.getGiocatore().giocatoreRemoveAttrezzo(borsa.getAttrezzo(nomeAttrezzo));			// rimuovo da borsa
 					System.out.println("Operazione avvenuta correttamente!!");
 				}
 				else
@@ -199,9 +193,8 @@ public class DiaDia {
 			else
 				System.out.println("Attrezzo non trovato!");
 			
-			System.out.println(partita.getStanzaCorrente().getDescrizione());
-			System.out.println(partita.getGiocatore().getBorsa());
-			System.out.println(partita);	// printa i cfu attuali
+			System.out.println(this.partita.getStanzaCorrente().getDescrizione());
+			System.out.println(this.partita.getGiocatore());		// printa il contentuto della borsa e i cfu attuali
 		}		
 	}
 

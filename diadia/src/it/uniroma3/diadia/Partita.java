@@ -95,11 +95,4 @@ public class Partita {
 	public Giocatore getGiocatore() {
 		return giocatore;
 	}
-
-	/**
-	 * implementato il toString per classe partita, stampa i cfu attuali
-	 */
-	public String toString() {
-		return "CFU attuali: " + this.getGiocatore().getCfu();
-	}
 }
