@@ -1,4 +1,4 @@
-package it.uniroma3.diadia.giocatore;
+package it.uniroma3.test.diadia.giocatore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Borsa;
 
 class BorsaTest {
 
@@ -15,7 +16,7 @@ class BorsaTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		this.borsa= new Borsa(20);
+		this.borsa= new Borsa(10);
 		this.osso= new Attrezzo("osso", 2);
 		this.spada= new Attrezzo("spada", 10);
 	}
@@ -69,7 +70,23 @@ class BorsaTest {
 		assertNull(this.borsa.removeAttrezzo("osso"));
 	}
 	
-
+	@Test
+	void testBorsaAddAttrezzo_BorsaVuota() {
+		assertTrue(this.borsa.addAttrezzo(osso));
+	}
+	
+	@Test
+	void testAddAttrezzo_BorsaTroppoPesante() {
+		this.borsa.addAttrezzo(this.spada);
+		assertFalse(this.borsa.addAttrezzo(this.osso));		// provo ad aggiungerne un altro
+	}
+	
+	@Test
+	void testAddAttrezzo_OltreLimiteDiPeso() {
+		this.borsa.addAttrezzo(this.osso);
+		assertFalse(this.borsa.addAttrezzo(this.spada));		// provo ad aggiungerne un altro
+	}
+	
 	@Test
 	void testBorsaGetAttrezzo_BorsaVuota() {
 		assertNull(this.borsa.getAttrezzo("osso"));

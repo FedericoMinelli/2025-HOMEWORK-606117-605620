@@ -1,10 +1,11 @@
-package it.uniroma3.diadia.ambienti;
+package it.uniroma3.test.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaTest {
@@ -54,6 +55,20 @@ class StanzaTest {
 	void testRemoveAttrezzo_StanzaOggettoNonPresente() {
 		this.stanza.addAttrezzo(this.osso);
 		assertFalse(this.stanza.removeAttrezzo(spada));
+	}
+	
+	// provo ad aggiungere un attrezzo e vedo se va a buon fine
+	@Test
+	void testAddAttrezzo_StanzaVuota() {
+		assertTrue(this.stanza.addAttrezzo(this.osso));
+	}
+	
+	@Test
+	void testAddAttrezzo_StanzaPiena() {
+		for(int i=0; i<this.stanza.getAttrezzi().length; i++) {		// aggiungo attrezzi fino a riempire la stanza
+			this.stanza.addAttrezzo(osso);
+		}
+		assertFalse(this.stanza.addAttrezzo(this.osso));		// provo ad aggiungerne un altro
 	}
 	
 	
