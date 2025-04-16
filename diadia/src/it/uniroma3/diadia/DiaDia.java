@@ -1,8 +1,5 @@
 package it.uniroma3.diadia;
 
-
-
-
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
@@ -53,53 +50,67 @@ public class DiaDia {
 				
 		do		
 			istruzione = this.IO.leggiRiga();
-		while (!processaIstruzione(istruzione));
+		while (!processaIstruzione(istruzione));  // se processaIstruzione returna false allora può essere letto un altro comando
 
 		
 	}   
-
 
 	/**
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
+	
 	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire = new Comando(istruzione);
-
-		if(comandoDaEseguire.getNome()==null)
-			return false;
-		if (comandoDaEseguire.getNome().equals("fine")) {
-			this.fine(); 
-			return true;
-		}
-		else if (comandoDaEseguire.getNome().equals("vai"))
-			this.vai(comandoDaEseguire.getParametro());
-
-		else if (comandoDaEseguire.getNome().equals("aiuto"))
-			this.aiuto();
-
-		else if (comandoDaEseguire.getNome().equals("prendi"))
-			this.prendi(comandoDaEseguire.getParametro());
-
-		else if (comandoDaEseguire.getNome().equals("posa"))
-			this.posa(comandoDaEseguire.getParametro());
-
-		else
-			this.IO.mostraMessaggio("Comando sconosciuto");
+		Comando comandoDaEseguire;
+		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
 		
-		if(this.partita.isFinita()) {
-			if (this.partita.vinta()) {
-				this.IO.mostraMessaggio("Hai vinto!");
-			}
-			else
-				this.IO.mostraMessaggio("Hai perso!");	// ora c'è una stampa anche quando si perde
-			return true;
-		}
-		return false;
-	}   
+		comandoDaEseguire = factory.costruisciComando(istruzione);
+		comandoDaEseguire.esegui(this.partita); 
+		if (this.partita.vinta())
+			System.out.println("Hai vinto!");
+		if (this.partita.getGiocatore().getCfu() == 0)
+			System.out.println("Hai esaurito i CFU...");
+		return this.partita.isFinita();
+	}
+	/* vecchia processaIstruzione */
+//	private boolean processaIstruzione(String istruzione) {
+//		Comando comandoDaEseguire = new Comando(istruzione);
+//
+//		if(comandoDaEseguire.getNome()==null)
+//			return false;
+//		if (comandoDaEseguire.getNome().equals("fine")) {
+//			this.fine(); 
+//			return true;
+//		}
+//		else if (comandoDaEseguire.getNome().equals("vai"))
+//			this.vai(comandoDaEseguire.getParametro());
+//
+//		else if (comandoDaEseguire.getNome().equals("aiuto"))
+//			this.aiuto();
+//
+//		else if (comandoDaEseguire.getNome().equals("prendi"))
+//			this.prendi(comandoDaEseguire.getParametro());
+//
+//		else if (comandoDaEseguire.getNome().equals("posa"))
+//			this.posa(comandoDaEseguire.getParametro());
+//
+//		else
+//			this.IO.mostraMessaggio("Comando sconosciuto");
+//		
+//		if(this.partita.isFinita()) {
+//			if (this.partita.vinta()) {
+//				this.IO.mostraMessaggio("Hai vinto!");
+//			}
+//			else
+//				this.IO.mostraMessaggio("Hai perso!");	// ora c'è una stampa anche quando si perde
+//			return true;
+//		}
+//		return false;
+//	}   
 
-	// implementazioni dei comandi dell'utente:
+	
+	/* implementazioni dei comandi dell'utente: */
 
 	/**
 	 * Stampa informazioni di aiuto.
@@ -151,8 +162,6 @@ public class DiaDia {
 				
 			}
 			this.IO.mostraMessaggio(messaggio);
-			
-				
 		}
 		else{
 			/* si potrebbe fare un altro if che sfrutta hasAttrezzo per vedere se
