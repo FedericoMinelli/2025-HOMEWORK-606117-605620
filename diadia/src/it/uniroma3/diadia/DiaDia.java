@@ -2,6 +2,8 @@ package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 import it.uniroma3.diadia.giocatore.Borsa;
 
 
@@ -29,7 +31,7 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
+	
 
 	private Partita partita;
 	private IOConsole IO;

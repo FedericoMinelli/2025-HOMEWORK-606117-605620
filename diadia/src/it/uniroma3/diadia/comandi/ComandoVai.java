@@ -1,5 +1,6 @@
-package it.uniroma3.diadia;
+package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVai implements Comando{
@@ -26,10 +27,14 @@ public class ComandoVai implements Comando{
 			return;
 		}
 		
-		// se esiste il giocatore si sposta
+		// se esiste, il giocatore si sposta
 		partita.setStanzaCorrente(prossimaStanza);
 		System.out.println(partita.getStanzaCorrente().getNome());
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
 	}
-	
+
+	@Override
+	public void setParametro(String parametro) {
+		this.direzione = parametro;		
+	}
 }
