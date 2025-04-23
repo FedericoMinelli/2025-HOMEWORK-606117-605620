@@ -22,11 +22,11 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 		else if (nomeComando.equals("vai"))
 			comando = new ComandoVai(parametro);
 		
-		else if (nomeComando.equals("prendi"))
-			comando = new ComandoPrendi();
-		
-		else if (nomeComando.equals("posa"))
-			comando = new ComandoPosa();
+//		else if (nomeComando.equals("prendi"))
+//			comando = new ComandoPrendi();
+//		
+//		else if (nomeComando.equals("posa"))
+//			comando = new ComandoPosa();
 		
 		else if (nomeComando.equals("aiuto"))
 			comando = new ComandoAiuto();

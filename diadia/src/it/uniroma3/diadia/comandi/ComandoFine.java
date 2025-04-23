@@ -7,6 +7,7 @@ public class ComandoFine implements Comando{
 	@Override
 	public void esegui(Partita partita) {
 		System.out.println("Grazie di aver giocato!");
+		partita.setFinita();
 	}
 
 	@Override
@@ -15,5 +16,16 @@ public class ComandoFine implements Comando{
 		 *  comunque presente perche questa 
 		 *  classe implementa Comando
 		 */
+	}
+
+	@Override
+	public String getParametro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getNome() {
+		return "fine";
 	}
 }

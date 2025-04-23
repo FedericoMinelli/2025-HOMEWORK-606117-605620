@@ -14,4 +14,16 @@ public class ComandoNonValido implements Comando{
 		// resta vuoto come negli altri 2 casi
 	}
 
+	@Override
+	public String getParametro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getNome() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

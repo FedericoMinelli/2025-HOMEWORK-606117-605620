@@ -32,15 +32,12 @@ public class DiaDia {
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 
 	
-
 	private Partita partita;
-	private IOConsole IO;
+	private IO io;
 	
 	
-	
-
-	public DiaDia(IOConsole IO) {
-		this.IO = IO;
+	public DiaDia(IO io) {
+		this.io = io;
 		this.partita = new Partita();
 	}
 
@@ -48,10 +45,10 @@ public class DiaDia {
 		String istruzione; 
 		
 
-		this.IO.mostraMessaggio(MESSAGGIO_BENVENUTO);
+		this.io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 				
 		do		
-			istruzione = this.IO.leggiRiga();
+			istruzione = this.io.leggiRiga();
 		while (!processaIstruzione(istruzione));  // se processaIstruzione returna false allora può essere letto un altro comando
 
 		
@@ -115,55 +112,23 @@ public class DiaDia {
 	/* implementazioni dei comandi dell'utente: */
 
 	/**
-	 * Stampa informazioni di aiuto.
-	 */
-	private void aiuto() {
-		String messaggio = "";
-		for(int i=0; i< elencoComandi.length; i++) {
-			messaggio += elencoComandi[i] + " ";
-		}
-			this.IO.mostraMessaggio(messaggio);  
-		
-	}
-
-	/**
-	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra 
-	 * e ne stampa il nome, altrimenti stampa un messaggio di errore
-	 */
-	private void vai(String direzione) {
-		if(direzione==null)
-			this.IO.mostraMessaggio("Dove vuoi andare ?");
-		Stanza prossimaStanza = null;
-		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
-		if (prossimaStanza == null)
-			this.IO.mostraMessaggio("Direzione inesistente");
-		else {
-			this.partita.setStanzaCorrente(prossimaStanza);
-			int cfu = this.partita.getGiocatore().getCfu();		// aggiunta chiamata al metodo getGiocatore() per poter accedere ai cfu
-			this.partita.getGiocatore().setCfu(--cfu);		// ora i cfu vengono scalati correttamente
-		}
-		this.IO.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
-		this.IO.mostraMessaggio(this.partita.getGiocatore().toString());	// printa il contentuto della borsa e i cfu attuali
-	}
-
-	/**
 	 * comando Prendi
 	 */
 	private void prendi(String nomeAttrezzo) {
 		// se peso della borsa è uguale al suo massimo allora non posso aggiungere un nuovo attrezzo
 		if(this.partita.getGiocatore().getBorsa().getPeso() == this.partita.getGiocatore().getBorsa().getPesoMax()) {
-			this.IO.mostraMessaggio("La borsa è al completo!");
+			this.io.mostraMessaggio("La borsa è al completo!");
 		}
 		else if(nomeAttrezzo==null) {
 			String messaggio = "";
-			this.IO.mostraMessaggio("Quale attrezzo vuoi prendere ? ");
+			this.io.mostraMessaggio("Quale attrezzo vuoi prendere ? ");
 			// stampa tutti gli attrezzi nella stanza
 			for(Attrezzo a : this.partita.getStanzaCorrente().getAttrezzi()) {
 				if(a!=null)
 					messaggio += a + " ";
 				
 			}
-			this.IO.mostraMessaggio(messaggio);
+			this.io.mostraMessaggio(messaggio);
 		}
 		else{
 			/* si potrebbe fare un altro if che sfrutta hasAttrezzo per vedere se
@@ -174,16 +139,16 @@ public class DiaDia {
 				// controllo se l'aggiunta si può fare e in caso aggiungo
 				if(this.partita.getGiocatore().giocatoreAddAttrezzo(a)) {
 					this.partita.getStanzaCorrente().removeAttrezzo(a);		// rimuovo da stanza
-					this.IO.mostraMessaggio("Operazione avvenuta correttamente!!");
+					this.io.mostraMessaggio("Operazione avvenuta correttamente!!");
 				}
 				else 
-					this.IO.mostraMessaggio("Questo attrezzo è troppo pesante e non può essere aggiunto, prova con un altro!");				
+					this.io.mostraMessaggio("Questo attrezzo è troppo pesante e non può essere aggiunto, prova con un altro!");				
 			}
 			else 
-				this.IO.mostraMessaggio("Attrezzo non trovato");	
+				this.io.mostraMessaggio("Attrezzo non trovato");	
 			
-			this.IO.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
-			this.IO.mostraMessaggio(this.partita.getGiocatore().toString()); // printa il contentuto della borsa e i cfu attuali
+			this.io.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
+			this.io.mostraMessaggio(this.partita.getGiocatore().toString()); // printa il contentuto della borsa e i cfu attuali
 		}
 	}
 
@@ -194,13 +159,13 @@ public class DiaDia {
 		// controllo se la borsa è vuota
 		if(this.partita.getGiocatore().getBorsa().isEmpty()) {
 			
-			this.IO.mostraMessaggio("Nessun attrezzo da posare");
-			this.IO.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());;
-			this.IO.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());		// printa il contenuto della borsa		
+			this.io.mostraMessaggio("Nessun attrezzo da posare");
+			this.io.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());;
+			this.io.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());		// printa il contenuto della borsa		
 		}
 		else if(nomeAttrezzo == null) {
-			this.IO.mostraMessaggio("Quale attrezzo vuoi posare ? ");
-			this.IO.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());		// stampa tutti gli attrezzi in borsa
+			this.io.mostraMessaggio("Quale attrezzo vuoi posare ? ");
+			this.io.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());		// stampa tutti gli attrezzi in borsa
 		}
 		else {
 			// salvo dentro un riferimento 'borsa' la borsa della partita
@@ -209,28 +174,21 @@ public class DiaDia {
 				// se la stanza ha posto posso posare l'attrezzo, altrimenti no
 				if(this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo))) {
 					this.partita.getGiocatore().giocatoreRemoveAttrezzo(borsa.getAttrezzo(nomeAttrezzo));			// rimuovo da borsa
-					this.IO.mostraMessaggio("Operazione avvenuta correttamente!!");
+					this.io.mostraMessaggio("Operazione avvenuta correttamente!!");
 				}
 				else
-					this.IO.mostraMessaggio("La stanza è al completo, non puoi posare l'attrezzo qui!");
+					this.io.mostraMessaggio("La stanza è al completo, non puoi posare l'attrezzo qui!");
 			}
 			else
-				this.IO.mostraMessaggio("Attrezzo non trovato!");
+				this.io.mostraMessaggio("Attrezzo non trovato!");
 			
-			this.IO.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
-			this.IO.mostraMessaggio(this.partita.getGiocatore().toString());		// printa il contentuto della borsa e i cfu attuali
+			this.io.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
+			this.io.mostraMessaggio(this.partita.getGiocatore().toString());		// printa il contentuto della borsa e i cfu attuali
 		}		
 	}
 
-	/**
-	 * Comando "Fine".
-	 */
-	private void fine() {
-		this.IO.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
-	}
-
 	public static void main(String[] argc) {
-		IOConsole IO = new IOConsole();
+		IO IO = new IOConsole();
 		DiaDia gioco = new DiaDia(IO);
 		gioco.gioca();
 		
