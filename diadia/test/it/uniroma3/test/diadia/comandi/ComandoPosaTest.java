@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.ComandoPosa;
 import it.uniroma3.diadia.giocatore.Borsa;
 
@@ -18,7 +19,7 @@ class ComandoPosaTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		partita = new Partita();
-		posa = new ComandoPosa("osso");
+		posa = new ComandoPosa("prova");
 	}
 
 	@Test
@@ -27,14 +28,62 @@ class ComandoPosaTest {
 		Stanza stanza = partita.getStanzaCorrente();
 		posa.setParametro(null);
 		posa.esegui(partita);
-		assertEquals(stanza, partita.getStanzaCorrente());
-		assertEquals(borsa, partita.getGiocatore().getBorsa());
+		assertNull(borsa.getAttrezzo(posa.getParametro()));
+		assertNull(stanza.getAttrezzo(posa.getParametro()));
 	}
 	
 	
 	@Test
-	void testEsegui_AttrezzoNull() {
+	void testEsegui_AttrezzoNullBorsaConOggetti() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		Attrezzo a = new Attrezzo("pera", 1);
+		
+		borsa.addAttrezzo(a);
 		posa.esegui(partita);
+		
+		assertNull(borsa.getAttrezzo(posa.getParametro()));
+		assertNull(stanza.getAttrezzo(posa.getParametro()));
+	}
+	
+	@Test
+	void testEsegui_AttrezzoNullBorsaSenzaOggetti() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		posa.esegui(partita);
+		
+		assertNull(borsa.getAttrezzo(posa.getParametro()));
+		assertNull(stanza.getAttrezzo(posa.getParametro()));
+	}
+	
+	@Test
+	void testEsegui_StanzaPiena() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		
+		while(stanza.getNumeroAttrezzi() < 10) {
+			Attrezzo a = new Attrezzo("a", 1);
+			stanza.addAttrezzo(a);
+		}
+		Attrezzo prova = new Attrezzo("prova", 1);
+		borsa.addAttrezzo(prova);
+		posa.esegui(partita);
+		
+		assertNotNull(borsa.getAttrezzo(posa.getParametro()));
+		assertNull(stanza.getAttrezzo(posa.getParametro()));
+	}
+	
+	@Test
+	void testEsegui_Funzionante() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		Attrezzo prova = new Attrezzo("prova", 1);
+		
+		borsa.addAttrezzo(prova);
+		posa.esegui(partita);
+		
+		assertNull(borsa.getAttrezzo(posa.getParametro()));
+		assertNotNull(stanza.getAttrezzo(posa.getParametro()));
 	}
 
 }
