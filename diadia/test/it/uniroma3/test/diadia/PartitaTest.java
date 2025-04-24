@@ -31,6 +31,7 @@ class PartitaTest {
 		this.partita.setFinita();
 		assertTrue(this.partita.isFinita());
 	}
+
 	
 	@Test
 	void testPartitaVinta() {
@@ -40,6 +41,7 @@ class PartitaTest {
 	
 	@Test
 	void testPartitaNonAncoraVinta() {
-		assertFalse(this.partita.vinta());
+		assertFalse(this.partita.vinta());  
 	}
 }
+
