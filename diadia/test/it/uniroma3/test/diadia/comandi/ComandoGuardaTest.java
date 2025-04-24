@@ -12,6 +12,7 @@ class ComandoGuardaTest {
 
 	private Partita partita;
 	private ComandoGuarda guarda;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		partita = new Partita();
