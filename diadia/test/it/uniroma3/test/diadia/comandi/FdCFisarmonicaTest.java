@@ -47,13 +47,25 @@ class FdCFisarmonicaTest {		// FdC è l'abbreviazione di FabbricaDiComandi
 	@Test
 	void testGetNome_Prendi() {
 		comando = new ComandoPrendi("osso");
-		assertEquals("osso", comando.getNome());
+		assertEquals("prendi", comando.getNome());
+	}
+	
+	@Test
+	void testGetParametro_Prendi() {
+		comando = new ComandoPrendi("osso");
+		assertEquals("osso", comando.getParametro());
 	}
 	
 	@Test
 	void testGetNome_Posa() {
 		comando = new ComandoPosa("osso");
-		assertEquals("osso", comando.getNome());
+		assertEquals("posa", comando.getNome());
+	}
+	
+	@Test
+	void testGetParametro_Posa() {
+		comando = new ComandoPosa("osso");
+		assertEquals("osso", comando.getParametro());
 	}
 
 }
