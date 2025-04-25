@@ -22,74 +22,71 @@ class ComandoPrendiTest {
 		prendi = new ComandoPrendi("prova");
 	}
 
-//	@Test
-//	void testEsegui_AttrezzoNonSpecificatoSetParametroNull() {
-//		Borsa borsa = partita.getGiocatore().getBorsa();
-//		Stanza stanza = partita.getStanzaCorrente();
-//		prendi.setParametro(null);
-//		prendi.esegui(partita);
-//		assertNull(borsa.getAttrezzo(prendi.getParametro()));
-//		assertNull(stanza.getAttrezzo(prendi.getParametro()));
-//	}
-//	
-//	@Test
-//	void testEsegui_AttrezzoNullStanzaConOggetti() {
-//		Borsa borsa = partita.getGiocatore().getBorsa();
-//		Stanza stanza = partita.getStanzaCorrente();
-//		prendi.esegui(partita);
-//		Attrezzo a = new Attrezzo("pera", 1);
-//		
-//		stanza.addAttrezzo(a);		// cosi ho la certezza che ci sia almeno un attrezzo
-//		
-//		assertNull(borsa.getAttrezzo(prendi.getParametro()));
-//		assertNull(stanza.getAttrezzo(prendi.getParametro()));
-//	}
-//	
 	@Test
-	void testEsegui_AttrezzoNullStanzaSenzaOggetti() {
+	void testEsegui_AttrezzoNonSpecificatoSetParametroNull() {
 		Borsa borsa = partita.getGiocatore().getBorsa();
 		Stanza stanza = partita.getStanzaCorrente();
-		//prendi.esegui(partita);
+		prendi.setParametro(null);
+		prendi.esegui(partita);
+		assertNull(borsa.getAttrezzo(prendi.getParametro()));
+		assertNull(stanza.getAttrezzo(prendi.getParametro()));
+	}
+	
+	@Test
+	void testEsegui_AttrezzoNullStanzaConOggetti() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		prendi.esegui(partita);
+		Attrezzo a = new Attrezzo("pera", 1);
 		
-		Attrezzo[] array = stanza.getAttrezzi();
-		for(int i=0; stanza.getNumeroAttrezzi() != 0; i++) {
-			
-			stanza.removeAttrezzo(array[i]);
-		}
-		System.out.println(stanza.getNumeroAttrezzi());
+		stanza.addAttrezzo(a);		// cosi ho la certezza che ci sia almeno un attrezzo
 		
 		assertNull(borsa.getAttrezzo(prendi.getParametro()));
 		assertNull(stanza.getAttrezzo(prendi.getParametro()));
 	}
-//	
-//	@Test
-//	void testEsegui_StanzaPiena() {
-//		Borsa borsa = partita.getGiocatore().getBorsa();
-//		Stanza stanza = partita.getStanzaCorrente();
-//		
-//		while(stanza.getNumeroAttrezzi() < 10) {
-//			Attrezzo a = new Attrezzo("a", 1);
-//			stanza.addAttrezzo(a);
-//		}
-//		Attrezzo prova = new Attrezzo("prova", 1);
-//		borsa.addAttrezzo(prova);
-//		prendi.esegui(partita);
-//		
-//		assertNotNull(borsa.getAttrezzo(prendi.getParametro()));
-//		assertNull(stanza.getAttrezzo(prendi.getParametro()));
-//	}
-//	
-//	@Test
-//	void testEsegui_Funzionante() {
-//		Borsa borsa = partita.getGiocatore().getBorsa();
-//		Stanza stanza = partita.getStanzaCorrente();
-//		Attrezzo prova = new Attrezzo("prova", 1);
-//		
-//		borsa.addAttrezzo(prova);
-//		prendi.esegui(partita);
-//		
-//		assertNull(borsa.getAttrezzo(prendi.getParametro()));
-//		assertNotNull(stanza.getAttrezzo(prendi.getParametro()));
-//	}
+	
+	@Test
+	void testEsegui_AttrezzoNullStanzaSenzaOggetti() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+
+		Attrezzo[] array = stanza.getAttrezzi();
+		while(stanza.getNumeroAttrezzi() != 0) {
+			stanza.removeAttrezzo(array[0]);
+		}
+		prendi.esegui(partita);
+		
+		assertNull(borsa.getAttrezzo(prendi.getParametro()));
+		assertNull(stanza.getAttrezzo(prendi.getParametro()));
+	}
+	
+	@Test
+	void testEsegui_BorsaPiena() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		
+		
+		Attrezzo a = new Attrezzo("a", 10);
+		Attrezzo prova = new Attrezzo("prova", 1);
+		borsa.addAttrezzo(a);
+		stanza.addAttrezzo(prova);
+		prendi.esegui(partita);
+		
+		assertNotNull(stanza.getAttrezzo(prendi.getParametro()));
+		assertNull(borsa.getAttrezzo(prendi.getParametro()));
+	}
+	
+	@Test
+	void testEsegui_Funzionante() {
+		Borsa borsa = partita.getGiocatore().getBorsa();
+		Stanza stanza = partita.getStanzaCorrente();
+		Attrezzo prova = new Attrezzo("prova", 1);
+		
+		stanza.addAttrezzo(prova);
+		prendi.esegui(partita);
+		
+		assertNull(stanza.getAttrezzo(prendi.getParametro()));
+		assertNotNull(borsa.getAttrezzo(prendi.getParametro()));
+	}
 
 }
