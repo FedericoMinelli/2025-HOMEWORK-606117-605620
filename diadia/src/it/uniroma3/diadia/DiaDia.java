@@ -1,10 +1,7 @@
 package it.uniroma3.diadia;
 
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
-import it.uniroma3.diadia.giocatore.Borsa;
 
 
 /**
@@ -49,9 +46,7 @@ public class DiaDia {
 				
 		do		
 			istruzione = this.io.leggiRiga();
-		while (!processaIstruzione(istruzione));  // se processaIstruzione returna false allora può essere letto un altro comando
-
-		
+		while (!processaIstruzione(istruzione));  // se processaIstruzione returna false allora può essere letto un altro comando	
 	}   
 
 	/**
@@ -72,129 +67,10 @@ public class DiaDia {
 			System.out.println("Hai esaurito i CFU...");
 		return this.partita.isFinita();
 	}
-	/* vecchia processaIstruzione */
-//	private boolean processaIstruzione(String istruzione) {
-//		Comando comandoDaEseguire = new Comando(istruzione);
-//
-//		if(comandoDaEseguire.getNome()==null)
-//			return false;
-//		if (comandoDaEseguire.getNome().equals("fine")) {
-//			this.fine(); 
-//			return true;
-//		}
-//		else if (comandoDaEseguire.getNome().equals("vai"))
-//			this.vai(comandoDaEseguire.getParametro());
-//
-//		else if (comandoDaEseguire.getNome().equals("aiuto"))
-//			this.aiuto();
-//
-//		else if (comandoDaEseguire.getNome().equals("prendi"))
-//			this.prendi(comandoDaEseguire.getParametro());
-//
-//		else if (comandoDaEseguire.getNome().equals("posa"))
-//			this.posa(comandoDaEseguire.getParametro());
-//
-//		else
-//			this.IO.mostraMessaggio("Comando sconosciuto");
-//		
-//		if(this.partita.isFinita()) {
-//			if (this.partita.vinta()) {
-//				this.IO.mostraMessaggio("Hai vinto!");
-//			}
-//			else
-//				this.IO.mostraMessaggio("Hai perso!");	// ora c'è una stampa anche quando si perde
-//			return true;
-//		}
-//		return false;
-//	}   
-
 	
-	/* implementazioni dei comandi dell'utente: */
-
-	/**
-	 * comando Prendi
-	 */
-//	private void prendi(String nomeAttrezzo) {
-//		// se peso della borsa è uguale al suo massimo allora non posso aggiungere un nuovo attrezzo
-//		if(this.partita.getGiocatore().getBorsa().getPeso() == this.partita.getGiocatore().getBorsa().getPesoMax()) {
-//			this.io.mostraMessaggio("La borsa è al completo!");
-//		}
-//		else if(nomeAttrezzo==null) {
-//			String messaggio = "";
-//			this.io.mostraMessaggio("Quale attrezzo vuoi prendere ? ");
-//			// stampa tutti gli attrezzi nella stanza
-//			for(Attrezzo a : this.partita.getStanzaCorrente().getAttrezzi()) {
-//				if(a!=null)
-//					messaggio += a + " ";
-//				
-//			}
-//			this.io.mostraMessaggio(messaggio);
-//		}
-//		else{
-//			/* si potrebbe fare un altro if che sfrutta hasAttrezzo per vedere se
-//			 * l'attrezzo da prendere esiste ma lo stesso compito viene svolto da
-//			 * getAttrezzo(nomeAttrezzo) perché restituisce null quando non lo trova*/
-//			Attrezzo a = this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
-//			if(a!=null) {
-//				// controllo se l'aggiunta si può fare e in caso aggiungo
-//				if(this.partita.getGiocatore().giocatoreAddAttrezzo(a)) {
-//					this.partita.getStanzaCorrente().removeAttrezzo(a);		// rimuovo da stanza
-//					this.io.mostraMessaggio("Operazione avvenuta correttamente!!");
-//				}
-//				else 
-//					this.io.mostraMessaggio("Questo attrezzo è troppo pesante e non può essere aggiunto, prova con un altro!");				
-//			}
-//			else 
-//				this.io.mostraMessaggio("Attrezzo non trovato");	
-//			
-//			this.io.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
-//			this.io.mostraMessaggio(this.partita.getGiocatore().toString()); // printa il contentuto della borsa e i cfu attuali
-//		}
-//	}
-
-	/**
-	 * comando Posa
-	 */
-	private void posa(String nomeAttrezzo) {
-		// controllo se la borsa è vuota
-		if(this.partita.getGiocatore().getBorsa().isEmpty()) {
-			
-			this.io.mostraMessaggio("Nessun attrezzo da posare");
-			this.io.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());;
-			this.io.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());		// printa il contenuto della borsa		
-		}
-		else if(nomeAttrezzo == null) {
-			this.io.mostraMessaggio("Quale attrezzo vuoi posare ? ");
-			this.io.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());		// stampa tutti gli attrezzi in borsa
-		}
-		else {
-			// salvo dentro un riferimento 'borsa' la borsa della partita
-			Borsa borsa = this.partita.getGiocatore().getBorsa();	
-			if(borsa.hasAttrezzo(nomeAttrezzo)) {
-				// se la stanza ha posto posso posare l'attrezzo, altrimenti no
-				if(this.partita.getStanzaCorrente().addAttrezzo(borsa.getAttrezzo(nomeAttrezzo))) {
-					this.partita.getGiocatore().giocatoreRemoveAttrezzo(borsa.getAttrezzo(nomeAttrezzo));			// rimuovo da borsa
-					this.io.mostraMessaggio("Operazione avvenuta correttamente!!");
-				}
-				else
-					this.io.mostraMessaggio("La stanza è al completo, non puoi posare l'attrezzo qui!");
-			}
-			else
-				this.io.mostraMessaggio("Attrezzo non trovato!");
-			
-			this.io.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
-			this.io.mostraMessaggio(this.partita.getGiocatore().toString());		// printa il contentuto della borsa e i cfu attuali
-		}		
-	}
-
 	public static void main(String[] argc) {
 		IO IO = new IOConsole();
 		DiaDia gioco = new DiaDia(IO);
 		gioco.gioca();
-		
-		
-		
-		
-
 	}
 }
