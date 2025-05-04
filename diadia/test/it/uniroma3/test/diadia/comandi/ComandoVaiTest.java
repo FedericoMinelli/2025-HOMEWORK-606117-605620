@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.ComandoVai;
+//import it.uniroma3.diadia.ambienti.StanzaBloccata;
+//import it.uniroma3.diadia.attrezzi.Attrezzo;
+//import it.uniroma3.diadia.comandi.ComandoGuarda;
 
 class ComandoVaiTest {
 
@@ -44,5 +47,44 @@ class ComandoVaiTest {
 		vai.esegui(partita);
 		assertEquals(stanza.getStanzaAdiacente("nord"), partita.getStanzaCorrente());
 	}
+	
+//	PRIMA DI FARE QUESTI TEST "SCOMMENTARE" GLI IMPORT
+//	@Test 
+//	void testStanzaBloccata(){
+//		Stanza stanza = partita.getStanzaCorrente();
+//		StanzaBloccata bloccata = new StanzaBloccata("b", "ovest", "chiave");
+//		stanza.impostaStanzaAdiacente("sud", bloccata);
+//		bloccata.impostaStanzaAdiacente("nord", stanza);
+//		Stanza stanza2 = new Stanza("Prova");
+//		stanza2.impostaStanzaAdiacente("est", bloccata);
+//		bloccata.impostaStanzaAdiacente("ovest", stanza2);
+//		
+//		ComandoVai vai2 = new ComandoVai("sud");		// comando per spostamento
+//		vai2.esegui(partita);		// mi sposto a sud, quindi nella stanza che ha una direzione bloccata
+//		ComandoGuarda guarda = new ComandoGuarda();
+//		guarda.esegui(partita);
+//		vai2.setParametro("ovest");		// provo ad andare nella direzione bloccata
+//		vai2.esegui(partita);
+//	}
+//	
+//	@Test 
+//	void testStanzaSbloccata(){
+//		Stanza stanza = partita.getStanzaCorrente();
+//		StanzaBloccata bloccata = new StanzaBloccata("b", "ovest", "chiave");
+//		stanza.impostaStanzaAdiacente("sud", bloccata);
+//		bloccata.impostaStanzaAdiacente("nord", stanza);
+//		Stanza stanza2 = new Stanza("Prova");
+//		stanza2.impostaStanzaAdiacente("est", bloccata);
+//		bloccata.impostaStanzaAdiacente("ovest", stanza2);
+//		
+//		ComandoVai vai2 = new ComandoVai("sud");		// comando per spostamento
+//		vai2.esegui(partita);		// mi sposto a sud, quindi nella stanza che ha una direzione bloccata
+//		ComandoGuarda guarda = new ComandoGuarda();
+//		partita.getStanzaCorrente().addAttrezzo(new Attrezzo("chiave", 1));
+//		guarda.esegui(partita);
+//		vai2.setParametro("ovest");		// provo ad andare nella direzione bloccata
+//		vai2.esegui(partita);
+//		
+//	}
 
 }
