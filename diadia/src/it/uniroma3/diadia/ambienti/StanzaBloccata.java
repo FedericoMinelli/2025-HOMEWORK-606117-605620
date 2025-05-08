@@ -25,8 +25,8 @@ public class StanzaBloccata extends Stanza {
 
 	@Override
 	public String getDescrizione() {
-		if(!(this.hasAttrezzo(attrezzoSbloccante))) {
-			System.out.println("La direzione " + this.getDirezioneBloccata() + " è bloccata");
+		if(!this.hasAttrezzo(attrezzoSbloccante)) {
+			return "La direzione " + this.getDirezioneBloccata() + " è bloccata\n" + super.getDescrizione();
 		}
 		return super.getDescrizione();
 	}

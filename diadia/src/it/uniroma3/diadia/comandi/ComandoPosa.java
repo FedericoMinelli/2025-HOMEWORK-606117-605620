@@ -1,11 +1,18 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosa implements Comando{
 
 	private String nomeAttrezzo;
+	private IO io;
+	
+	@Override
+	public void setIO(IO io) {
+		this.io = io;
+	}
 
 	public ComandoPosa(String nomeAttrezzo) {
 		this.nomeAttrezzo = nomeAttrezzo;				
@@ -16,7 +23,7 @@ public class ComandoPosa implements Comando{
 
 		// non viene specificato l'attrezzo ma viene chiamato solo il comando
 		if(nomeAttrezzo == null) {
-			System.out.println("Quale attrezzo vuoi posare? (Usa comando guarda per vedere gli attrezzi)");
+			io.mostraMessaggio("Quale attrezzo vuoi posare? (Usa comando guarda per vedere gli attrezzi)");
 			return;
 		}
 
@@ -27,14 +34,14 @@ public class ComandoPosa implements Comando{
 		if(a!=null) {
 			if(partita.getStanzaCorrente().addAttrezzo(a)) {		 // vedo se posso aggiungerlo, se no....
 				partita.getGiocatore().giocatoreRemoveAttrezzo(a);   // rimuovo dalla borsa
-				System.out.println("Fatto!");
+				io.mostraMessaggio("Fatto!");
 				return;
 			}
-			System.out.println("Stanza al completo");		// .... vuol dire che la stanza è al completo
+			io.mostraMessaggio("Stanza al completo");		// .... vuol dire che la stanza è al completo
 			return;
 		}
 		// ... attrezzo non trovato
-		System.out.println("Attrezzo non trovato");
+		io.mostraMessaggio("Attrezzo non trovato");
 		return;
 	}
 

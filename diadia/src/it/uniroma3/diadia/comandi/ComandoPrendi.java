@@ -1,11 +1,18 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendi implements Comando{
 
 	private String nomeAttrezzo;
+	private IO io;
+	
+	@Override
+	public void setIO(IO io) {
+		this.io = io;
+	}
 	
 	public ComandoPrendi(String nomeAttrezzo) {
 		this.nomeAttrezzo = nomeAttrezzo;				
@@ -16,7 +23,7 @@ public class ComandoPrendi implements Comando{
 		
 		// non viene specificato l'attrezzo ma viene chiamato solo il comando
 		if(nomeAttrezzo == null) {
-			System.out.println("Quale attrezzo vuoi prendere? (Usa comando guarda per vedere gli attrezzi)");
+			io.mostraMessaggio("Quale attrezzo vuoi prendere? (Usa comando guarda per vedere gli attrezzi)");
 			return;
 		}
 		
@@ -27,14 +34,14 @@ public class ComandoPrendi implements Comando{
 		if(a!=null) {
 			if(partita.getGiocatore().giocatoreAddAttrezzo(a)) {	// vedo se posso aggiungerlo, se no....
 				partita.getStanzaCorrente().removeAttrezzo(a);		// rimuovo da stanza
-				System.out.println("Fatto!");
+				io.mostraMessaggio("Fatto!");
 				return;
 			}
-			System.out.println("Attrezzo troppo pesante");		// .... vuol dire che pesa troppo
+			io.mostraMessaggio("Attrezzo troppo pesante");		// .... vuol dire che pesa troppo
 			return;
 		}
 		// ... attrezzo non trovato
-		System.out.println("Attrezzo non trovato");
+		io.mostraMessaggio("Attrezzo non trovato");
 		return;		
 	}
 

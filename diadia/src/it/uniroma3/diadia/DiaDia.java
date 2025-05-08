@@ -60,17 +60,18 @@ public class DiaDia {
 		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
 		
 		comandoDaEseguire = factory.costruisciComando(istruzione);
+		comandoDaEseguire.setIO(this.io);
 		comandoDaEseguire.esegui(this.partita); 
 		if (this.partita.vinta())
-			System.out.println("Hai vinto!");
+			this.io.mostraMessaggio("Hai vinto!");
 		if (this.partita.getGiocatore().getCfu() == 0)
-			System.out.println("Hai esaurito i CFU...");
+			this.io.mostraMessaggio("Hai esaurito i CFU...");
 		return this.partita.isFinita();
 	}
 	
 	public static void main(String[] argc) {
-		IO IO = new IOConsole();
-		DiaDia gioco = new DiaDia(IO);
+		IO IO = new IOConsole();				
+		DiaDia gioco = new DiaDia(IO);			
 		gioco.gioca();
 	}
 }
