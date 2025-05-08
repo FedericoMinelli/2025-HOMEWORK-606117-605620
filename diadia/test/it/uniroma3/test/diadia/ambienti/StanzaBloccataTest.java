@@ -52,5 +52,35 @@ class StanzaBloccataTest {
 		iniziale.addAttrezzo(chiave);
 		assertSame(sbloccata, iniziale.getStanzaAdiacente("sud"));
 	}
+	
+	@Test
+	void testGetStanzaAdiacente_InizialeDirezioneBloccataNull() {
+		iniziale.impostaStanzaAdiacente("nord", null);
+		assertSame(iniziale, iniziale.getStanzaAdiacente("nord"));
+	}
+	
+	@Test
+	void testGetStanzaAdiacente_InizialeDirezioneNonBloccataNull() {
+		iniziale.impostaStanzaAdiacente("sud", null);
+		assertSame(null, iniziale.getStanzaAdiacente("sud"));
+	}
+	
+	@Test
+	void testGetStanzaAdiacente_InizialeDirezioneSbloccataNull() {
+		iniziale.impostaStanzaAdiacente("nord", null);
+		iniziale.addAttrezzo(chiave);
+		assertSame(null, iniziale.getStanzaAdiacente("nord"));
+	}
+	
+	@Test
+	void testGetStanzaAdiacente_ArgomentoNullDirezioneBloccata() {
+		assertNull(iniziale.getStanzaAdiacente(null));
+	}
+	
+	@Test
+	void testGetStanzaAdiacente_ArgomentoNullDirezioneSbloccata() {
+		iniziale.addAttrezzo(chiave);
+		assertNull(iniziale.getStanzaAdiacente(null));
+	}
 
 }

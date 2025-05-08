@@ -13,12 +13,11 @@ public class StanzaBloccata extends Stanza {
 
 	@Override
 	public Stanza getStanzaAdiacente(String direzione) {
-		if(direzioneBloccata == direzione) {
+		if(direzioneBloccata.equals(direzione)) {
 			if(this.hasAttrezzo(attrezzoSbloccante)) {
 				return super.getStanzaAdiacente(direzione);
 			}
-			System.out.println("Questa direzione è ancora bloccata!");
-			return this;
+			return this;	// se direzione è ancora bloccata ritorna un riferimento alla stanza corrente
 		}
 		return super.getStanzaAdiacente(direzione);
 
