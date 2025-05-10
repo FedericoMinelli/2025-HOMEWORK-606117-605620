@@ -65,7 +65,7 @@ public class DiaDia {
 		if (this.partita.vinta())
 			this.io.mostraMessaggio("Hai vinto!");
 		if (this.partita.getGiocatore().getCfu() == 0)
-			this.io.mostraMessaggio("Hai esaurito i CFU...");
+			this.io.mostraMessaggio("CFU esauriti, hai perso...");
 		return this.partita.isFinita();
 	}
 	

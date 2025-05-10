@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.ComandoVai;
@@ -21,6 +22,7 @@ class ComandoVaiTest {
 	void setUp() throws Exception {
 		partita = new Partita();
 		vai = new ComandoVai("nord");
+		vai.setIO(new IOConsole());
 	}
 
 	// non essendoci il parametro il giocatore non si puo muovere e rimane nella stanza corrente

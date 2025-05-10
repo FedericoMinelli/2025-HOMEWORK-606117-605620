@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -20,6 +21,7 @@ class ComandoPosaTest {
 	void setUp() throws Exception {
 		partita = new Partita();
 		posa = new ComandoPosa("prova");
+		posa.setIO(new IOConsole());
 	}
 
 	@Test
