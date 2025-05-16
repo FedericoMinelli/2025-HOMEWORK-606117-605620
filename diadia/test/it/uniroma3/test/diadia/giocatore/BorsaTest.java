@@ -7,18 +7,28 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
+import test.BorsaCollezioni;
 
 class BorsaTest {
 
 	private Borsa borsa;
 	private Attrezzo osso;
 	private Attrezzo spada;
+	private Object vuota;
+	private Attrezzo martello;
+	private Attrezzo martelletto;
+	private Attrezzo piuma;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		this.borsa= new Borsa(10);
 		this.osso= new Attrezzo("osso", 2);
 		this.spada= new Attrezzo("spada", 10);
+		this.vuota= new Borsa();
+		this.piuma=new Attrezzo("piuma", 1);
+		this.martello=new Attrezzo("martello",10);
+		this.martelletto=new Attrezzo("martello",2);
+		this.borsa= new Borsa();
 	}
 
 	
@@ -102,6 +112,25 @@ class BorsaTest {
 	void testBorsaGetAttrezzo_OggettoNonPresente() {
 		this.borsa.addAttrezzo(spada);
 		assertNull(this.borsa.getAttrezzo("osso"));
+	}
+	@Test
+	void testBorsaVuota2() {
+		assertEquals(0, this.vuota.getPeso());
+	}
+	@Test
+	void testBorsa2attrezzi() {
+		this.vuota.addAttrezzo(piuma);
+		this.vuota.addAttrezzo(martello);
+		assertEquals(11, this.vuota.getPeso());
+	}
+	@Test
+	void testBorsaGetConetenutoNome() {
+		this.borsa.addAttrezzo(this.martello);
+		assertEquals(1, borsa.getNumeroAttrezzi());
+		assertEquals(1, borsa.getContenutoOrdinatoNome().size());
+		this.borsa.addAttrezzo(this.martelletto);
+		assertEquals(2, borsa.getNumeroAttrezzi());
+		assertEquals(2, borsa.getContenutoOrdinatoNome().size());
 	}
 
 }
