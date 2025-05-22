@@ -7,28 +7,28 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
-import test.BorsaCollezioni;
 
 class BorsaTest {
 
 	private Borsa borsa;
 	private Attrezzo osso;
 	private Attrezzo spada;
-	private Object vuota;
+	private Borsa vuota;
 	private Attrezzo martello;
 	private Attrezzo martelletto;
 	private Attrezzo piuma;
+	private Borsa borsa2;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		this.borsa= new Borsa(10);
 		this.osso= new Attrezzo("osso", 2);
 		this.spada= new Attrezzo("spada", 10);
-		this.vuota= new Borsa();
+		this.vuota= new Borsa(15);
 		this.piuma=new Attrezzo("piuma", 1);
 		this.martello=new Attrezzo("martello",10);
 		this.martelletto=new Attrezzo("martello",2);
-		this.borsa= new Borsa();
+		this.borsa2= new Borsa(50);
 	}
 
 	
@@ -87,8 +87,8 @@ class BorsaTest {
 	
 	@Test
 	void testAddAttrezzo_BorsaTroppoPesante() {
-		this.borsa.addAttrezzo(this.spada);
-		assertFalse(this.borsa.addAttrezzo(this.osso));		// provo ad aggiungerne un altro
+		this.borsa.addAttrezzo(this.osso);
+		assertFalse(this.borsa.addAttrezzo(this.spada));		// provo ad aggiungerne un altro
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ class BorsaTest {
 	}
 	@Test
 	void testBorsaVuota2() {
-		assertEquals(0, this.vuota.getPeso());
+		assertEquals(0,  this.vuota.getPeso());
 	}
 	@Test
 	void testBorsa2attrezzi() {
@@ -125,12 +125,12 @@ class BorsaTest {
 	}
 	@Test
 	void testBorsaGetConetenutoNome() {
-		this.borsa.addAttrezzo(this.martello);
-		assertEquals(1, borsa.getNumeroAttrezzi());
-		assertEquals(1, borsa.getContenutoOrdinatoNome().size());
-		this.borsa.addAttrezzo(this.martelletto);
-		assertEquals(2, borsa.getNumeroAttrezzi());
-		assertEquals(2, borsa.getContenutoOrdinatoNome().size());
+		this.borsa2.addAttrezzo(this.martello);
+		assertEquals(1, borsa2.getNumeroAttrezzi());
+		assertEquals(1, borsa2.getContenutoOrdinatoNome().size());
+		this.borsa2.addAttrezzo(this.martelletto);
+		assertEquals(2, borsa2.getNumeroAttrezzi());
+		assertEquals(2, borsa2.getContenutoOrdinatoNome().size());
 	}
 
 }

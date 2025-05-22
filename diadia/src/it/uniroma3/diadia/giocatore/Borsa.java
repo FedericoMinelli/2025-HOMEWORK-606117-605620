@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,8 @@ public class Borsa {
 	private static final int Peso_massimo_default = 10;
 	private List <Attrezzo> attrezzi;
 	private int pesoMax;
+	
+	
 
 	public Borsa() {
 		this(Peso_massimo_default);
@@ -25,6 +28,8 @@ public class Borsa {
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
 		this.attrezzi= new ArrayList<>();
+		
+		
 	}
 
 	/**
@@ -42,7 +47,10 @@ public class Borsa {
 		return pesototale;
 	}
 	public boolean addAttrezzo(Attrezzo attrezzo) {
-		return this.attrezzi.add(attrezzo);
+		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) {
+			return this.attrezzi.add(attrezzo);
+		}
+		return false;
 	}
 	
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
@@ -97,9 +105,9 @@ public class Borsa {
 	}
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		for (int i = 0; i<this.getNumeroAttrezzi(); i++)
-			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
-				a = attrezzi[i];
+		for (Attrezzo b:attrezzi)
+			if (b.getNome().equals(nomeAttrezzo))
+				a = b;
 
 		return a;
 	}
@@ -111,30 +119,25 @@ public class Borsa {
 	
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		
-		if(!isEmpty()) {
-			for(int i=0; i<this.getNumeroAttrezzi();i++) {
-				if(this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-					a=this.attrezzi[i];    // prima era this.attrezzi[i]=a  però con il test dava problemi
-					for(int j=i; j<this.getNumeroAttrezzi()-1;j++) {
-						this.attrezzi[j]=this.attrezzi[j+1];
-					}
-					this.attrezzi[this.getNumeroAttrezzi()-1]=null;
-					this.attrezzi--;
-					break;
-				}
+		Iterator<Attrezzo> it = this.attrezzi.iterator();
+		while(it.hasNext()) {
+			a=it.next();
+			if(a.getNome().equals(nomeAttrezzo)) {
+				it.remove();
+				return a;
 			}
 		}
 
-		return a;
+		return null;
 	}
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 
 		if (!this.isEmpty()) {
 			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-			for (int i= 0; i<this.attrezzi; i++)
-				s.append(attrezzi[i].toString()+" ");
+			for (Attrezzo a:attrezzi) {
+				s.append(a.toString()+" ");
+			}
 		}
 		else
 			s.append("Borsa vuota");
