@@ -64,11 +64,23 @@ class StanzaTest {
 	}
 	
 	@Test
-	void testAddAttrezzo_StanzaPiena() {
-		for(int i=0; i<this.stanza.getAttrezzi().size(); i++) {		// aggiungo attrezzi fino a riempire la stanza
-			this.stanza.addAttrezzo(osso);
-		}
-		assertFalse(this.stanza.addAttrezzo(this.osso));		// provo ad aggiungerne un altro
+	void testImpostaStanzaAdicente_Esistente() {
+		Stanza aula = new Stanza("aula");
+		this.stanza.impostaStanzaAdiacente("nord", aula);
+		assertSame(stanza.getStanzaAdiacente("nord"), aula);
+	}
+	
+	@Test
+	void testImpostaStanzaAdicente_ChiaveNullVedoDirezioneNull() {
+		Stanza aula = new Stanza("aula");
+		this.stanza.impostaStanzaAdiacente(null, aula);
+		assertSame(stanza.getStanzaAdiacente(null), aula);
+	}
+	
+	@Test
+	void testImpostaStanzaAdicente_ChiaveNullVedoAltraDirezione() {
+		this.stanza.impostaStanzaAdiacente(null, new Stanza("aula"));
+		assertNull(stanza.getStanzaAdiacente("nord"));
 	}
 	
 	
