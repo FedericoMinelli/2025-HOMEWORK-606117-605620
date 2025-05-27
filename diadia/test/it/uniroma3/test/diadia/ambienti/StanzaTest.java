@@ -65,7 +65,7 @@ class StanzaTest {
 	
 	@Test
 	void testAddAttrezzo_StanzaPiena() {
-		for(int i=0; i<this.stanza.getAttrezzi().length; i++) {		// aggiungo attrezzi fino a riempire la stanza
+		for(int i=0; i<this.stanza.getAttrezzi().size(); i++) {		// aggiungo attrezzi fino a riempire la stanza
 			this.stanza.addAttrezzo(osso);
 		}
 		assertFalse(this.stanza.addAttrezzo(this.osso));		// provo ad aggiungerne un altro
