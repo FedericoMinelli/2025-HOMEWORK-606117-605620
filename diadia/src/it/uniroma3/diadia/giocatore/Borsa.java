@@ -17,7 +17,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
 	private static final int Peso_massimo_default = 10;
-	private List <Attrezzo> attrezzi;
+	private List <Attrezzo> attrezzi;	// da trasformare in una mappa del tipo Map<String, Attrezzo>
 	private int pesoMax;
 	
 	
@@ -39,6 +39,8 @@ public class Borsa {
 	public int getPesoMax() {
 		return pesoMax;
 	}
+	
+	// da modifica usando una mappa di attrezzi
 	public int getPeso() {
 		int pesototale=0;
 		for(Attrezzo attrezzo : attrezzi) {
@@ -46,6 +48,7 @@ public class Borsa {
 		}
 		return pesototale;
 	}
+	
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) {
 			return this.attrezzi.add(attrezzo);
@@ -58,23 +61,26 @@ public class Borsa {
 		Collections.sort(risultato, new ComparatorePerNomeEPeso());
 		return risultato;
 	}
+	
 	public List<Attrezzo> getContenutoOrdinatoPerNome(){
 		final List <Attrezzo> risultato = new ArrayList<>(this.getAttrezzi());
 		Collections.sort(risultato);
 		return risultato;
 	}
+	
 	private List<Attrezzo> getAttrezzi() {
-		// TODO Auto-generated method stub
 		return this.attrezzi;
 	}
+	
 	public SortedSet<Attrezzo> getContenutoOrdinatoNome(){
 		return new TreeSet<>(this.getAttrezzi());
 
 	}
+	
 	public int getNumeroAttrezzi() {
-		
 		return this.attrezzi.size();
 	}
+	
 	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
 		final Map<Integer,Set<Attrezzo>> peso2attrezzi = new HashMap<>();
 		for(Attrezzo attrezzo : attrezzi) {
@@ -103,6 +109,7 @@ public class Borsa {
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		return this.getAttrezzo(nomeAttrezzo)!=null;
 	}
+	// da modifica usando una mappa di attrezzi
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		for (Attrezzo b:attrezzi)
@@ -117,6 +124,7 @@ public class Borsa {
 	 * @return peso attuale della borsa
 	 */
 	
+	// da modifica usando una mappa di attrezzi
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		Iterator<Attrezzo> it = this.attrezzi.iterator();
