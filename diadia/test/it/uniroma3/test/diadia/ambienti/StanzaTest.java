@@ -72,9 +72,8 @@ class StanzaTest {
 	
 	@Test
 	void testImpostaStanzaAdicente_ChiaveNullVedoDirezioneNull() {
-		Stanza aula = new Stanza("aula");
-		this.stanza.impostaStanzaAdiacente(null, aula);
-		assertSame(stanza.getStanzaAdiacente(null), aula);
+		this.stanza.impostaStanzaAdiacente(null, new Stanza("aula"));
+		assertNull(stanza.getStanzaAdiacente(null));
 	}
 	
 	@Test

@@ -29,7 +29,7 @@ public class Giocatore {
 	 * @return	true se attrezzo viene aggiunto, false altrimenti
 	 */
 	public boolean giocatoreAddAttrezzo(Attrezzo attrezzo) {
-		 return borsa.addAttrezzo(attrezzo);
+		 return borsa.addAttrezzo(attrezzo.getNome(), attrezzo);
 	}
 	
 	/**

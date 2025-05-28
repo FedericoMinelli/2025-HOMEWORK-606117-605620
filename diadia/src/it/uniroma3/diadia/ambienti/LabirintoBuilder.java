@@ -18,13 +18,14 @@ public class LabirintoBuilder {
 	public LabirintoBuilder addStanzaIniziale(String iniziale) {
 		this.ultimaStanzaAggiunta = new Stanza(iniziale);
 		this.labirinto.setStanzaIniziale(ultimaStanzaAggiunta);		// crea e aggiunge la stanza iniziale
-		
+		this.stanze.put(iniziale, ultimaStanzaAggiunta);
 		return this;
 	}
 	
 	public LabirintoBuilder addStanzaVincente(String vincente) {
 		this.ultimaStanzaAggiunta = new Stanza(vincente);
 		this.labirinto.setStanzaVincente(ultimaStanzaAggiunta);
+		this.stanze.put(vincente, ultimaStanzaAggiunta);
 		return this;
 	}
 	
@@ -38,7 +39,10 @@ public class LabirintoBuilder {
 	}
 	
 	public LabirintoBuilder addAdiacenza(String riferimento, String adiacente, String direzione) {
-		
+		if(riferimento == null) return this;
+		if(stanze.containsKey(adiacente))
+			this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, this.stanze.get(adiacente));
+		this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, new Stanza(adiacente));
 		return this;
 	}
 	
