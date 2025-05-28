@@ -127,10 +127,10 @@ class BorsaTest {
 	void testBorsaGetConetenutoNome() {
 		this.borsa2.addAttrezzo(this.martello);
 		assertEquals(1, borsa2.getNumeroAttrezzi());
-		assertEquals(1, borsa2.getContenutoOrdinatoNome().size());
+		assertEquals(1, borsa2.getContenutoOrdinatoPerNome().size());
 		this.borsa2.addAttrezzo(this.martelletto);
 		assertEquals(2, borsa2.getNumeroAttrezzi());
-		assertEquals(2, borsa2.getContenutoOrdinatoNome().size());
+		assertEquals(2, borsa2.getContenutoOrdinatoPerNome().size());
 	}
 
 }

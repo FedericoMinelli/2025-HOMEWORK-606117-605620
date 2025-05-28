@@ -62,17 +62,17 @@ public class Borsa {
 		return risultato;
 	}
 	
-	public List<Attrezzo> getContenutoOrdinatoPerNome(){
-		final List <Attrezzo> risultato = new ArrayList<>(this.getAttrezzi());
-		Collections.sort(risultato);
-		return risultato;
-	}
+//	public List<Attrezzo> getContenutoOrdinatoPerNome(){
+//		final List <Attrezzo> risultato = new ArrayList<>(this.getAttrezzi());
+//		Collections.sort(risultato);
+//		return risultato;
+//	}
 	
 	private List<Attrezzo> getAttrezzi() {
 		return this.attrezzi;
 	}
 	
-	public SortedSet<Attrezzo> getContenutoOrdinatoNome(){
+	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
 		return new TreeSet<>(this.getAttrezzi());
 
 	}
