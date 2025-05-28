@@ -1,5 +1,8 @@
 package it.uniroma3.test.diadia.giocatore;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,13 +42,13 @@ class BorsaTest {
 	
 	@Test
 	void testBorsaHasAttrezzo_AttrezzoPresente() {
-		this.borsa.addAttrezzo(this.osso);
+		this.borsa.addAttrezzo("osso",this.osso);
 		assertTrue(this.borsa.hasAttrezzo("osso"));
 	}
 	
 	@Test
 	void testBorsaHasAttrezzo_AttrezzoNonPresente() {
-		this.borsa.addAttrezzo(this.spada);
+		this.borsa.addAttrezzo("spada",this.spada);
 		assertFalse(this.borsa.hasAttrezzo("osso"));
 	}
 	
@@ -56,7 +59,7 @@ class BorsaTest {
 	
 	@Test
 	void testBorsaNonVuota() {
-		this.borsa.addAttrezzo(osso);
+		this.borsa.addAttrezzo("osso",osso);
 		assertFalse(this.borsa.isEmpty());
 	}
 
@@ -69,32 +72,33 @@ class BorsaTest {
 	@Test
 	// aggiunge l'attrezzo e verifica se la rimozione avviene correttamente
 	void testBorsaRemoveAttrezzo_AttrezzoPresente() {
-		this.borsa.addAttrezzo(this.osso);
+		this.borsa.addAttrezzo("osso",this.osso);
 		assertEquals(this.osso, this.borsa.removeAttrezzo("osso"));
 	}
 	
 	@Test
 	// prova ad eliminare un attrezzo non presente nella borsa, return null
 	void testBorsaRemoveAttrezzo_AttrezzoNonPresente() {
-		this.borsa.addAttrezzo(this.spada);
+		this.borsa.addAttrezzo("spada",this.spada);
 		assertNull(this.borsa.removeAttrezzo("osso"));
 	}
 	
 	@Test
 	void testBorsaAddAttrezzo_BorsaVuota() {
-		assertTrue(this.borsa.addAttrezzo(osso));
+		this.borsa.addAttrezzo("osso",osso);
+		assertTrue(this.borsa.hasAttrezzo("osso"));
 	}
 	
 	@Test
 	void testAddAttrezzo_BorsaTroppoPesante() {
-		this.borsa.addAttrezzo(this.osso);
-		assertFalse(this.borsa.addAttrezzo(this.spada));		// provo ad aggiungerne un altro
+		this.borsa.addAttrezzo("osso",this.osso);
+		assertNull(this.borsa.addAttrezzo("spada",this.spada));		// provo ad aggiungerne un altro
 	}
 	
 	@Test
 	void testAddAttrezzo_OltreLimiteDiPeso() {
-		this.borsa.addAttrezzo(this.osso);
-		assertFalse(this.borsa.addAttrezzo(this.spada));		// provo ad aggiungerne un altro
+		this.borsa.addAttrezzo("osso",this.osso);
+		assertNull(this.borsa.addAttrezzo("spada",this.spada));		// provo ad aggiungerne un altro
 	}
 	
 	@Test
@@ -104,13 +108,13 @@ class BorsaTest {
 	
 	@Test
 	void testBorsaGetAttrezzo_OggettoPresente() {
-		this.borsa.addAttrezzo(osso);
+		this.borsa.addAttrezzo("osso",osso);
 		assertEquals(this.osso, this.borsa.getAttrezzo("osso"));
 	}
 	
 	@Test
 	void testBorsaGetAttrezzo_OggettoNonPresente() {
-		this.borsa.addAttrezzo(spada);
+		this.borsa.addAttrezzo("spada",spada);
 		assertNull(this.borsa.getAttrezzo("osso"));
 	}
 	@Test
@@ -119,16 +123,16 @@ class BorsaTest {
 	}
 	@Test
 	void testBorsa2attrezzi() {
-		this.vuota.addAttrezzo(piuma);
-		this.vuota.addAttrezzo(martello);
+		this.vuota.addAttrezzo("piuma",piuma);
+		this.vuota.addAttrezzo("martello",martello);
 		assertEquals(11, this.vuota.getPeso());
 	}
 	@Test
 	void testBorsaGetConetenutoNome() {
-		this.borsa2.addAttrezzo(this.martello);
+		this.borsa2.addAttrezzo("martello",this.martello);
 		assertEquals(1, borsa2.getNumeroAttrezzi());
 		assertEquals(1, borsa2.getContenutoOrdinatoPerNome().size());
-		this.borsa2.addAttrezzo(this.martelletto);
+		this.borsa2.addAttrezzo("martelletto",this.martelletto);
 		assertEquals(2, borsa2.getNumeroAttrezzi());
 		assertEquals(2, borsa2.getContenutoOrdinatoPerNome().size());
 	}
