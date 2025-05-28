@@ -76,8 +76,8 @@ public class Stanza {
 	 * Restituisce la collezione di attrezzi presenti nella stanza.
 	 * @return la collezione di attrezzi nella stanza.
 	 */
-	public Set<Attrezzo> getAttrezzi() {
-		return new HashSet<Attrezzo>(this.attrezzi.values());
+	public List<Attrezzo> getAttrezzi() {
+		return new ArrayList<Attrezzo>(this.attrezzi.values());
 	}
 
 	/**
@@ -146,6 +146,27 @@ public class Stanza {
 
 	public Set<String> getDirezioni() {
 		return new HashSet<String>(this.stanzeAdiacenti.keySet());
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o==null || !(o instanceof Stanza)) return false;
+		Stanza that = (Stanza)o;
+		return this.getNome().equals(that.getNome());		
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getClass().hashCode() + this.getNome().hashCode();
+	}
+
+
+	public Map<String, Stanza> getMapStanzeAdiacenti() {
+		return this.stanzeAdiacenti;
+	}
+	
+	public boolean isMagica() {
+		return this.getClass()==StanzaMagica.class;
 	}
 
 
