@@ -23,15 +23,26 @@ public class Partita {
 
 	private boolean finita;
 
+	// costruttore per partite nel labirinto di default
 	public Partita(){
 		this.labirinto = new Labirinto();	// creazione riferimento di un'istanza Labirinto
 		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
-		stanzaVincente = labirinto.getStanzaFinale();		// prendo da labirinto l'informazione della stanza dove il gioco finisce
+		stanzaVincente = labirinto.getStanzaVincente();		// prendo da labirinto l'informazione della stanza vincente
 
 		this.giocatore = new Giocatore();	// creazione riferimento di un'istanza Giocatore
 
 		this.finita = false;
-
+	}
+	
+	// costruttore a supporto di partite in labirinti diversi
+	public Partita(Labirinto labirinto) {
+		this.labirinto = labirinto;
+		stanzaCorrente = labirinto.getStanzaIniziale();
+		stanzaVincente = labirinto.getStanzaVincente();
+		
+		this.giocatore = new Giocatore();
+		
+		this.finita = false;
 	}
 
 	/**
@@ -53,6 +64,10 @@ public class Partita {
 	// aggiunto getter di labirinto
 	public Labirinto getLabirinto() {
 		return labirinto;
+	}
+	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
 	}
 
 	/**

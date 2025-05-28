@@ -6,7 +6,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public class Labirinto {
 	
 	private Stanza stanzaIniziale;
-	private Stanza stanzaFinale;
+	private Stanza stanzaVincente;
 	
 	private Stanza atrio;
 	private Stanza aulaN11;
@@ -30,8 +30,8 @@ public class Labirinto {
 		creaStanze();
 		collegaStanze();
 		poniAttrezzi();
-		setStanzaIniziale();
-		setStanzaFinale();
+		setStanzaIniziale(atrio);
+		setStanzaVincente(biblioteca);
 		
 	}
 	
@@ -98,18 +98,12 @@ public class Labirinto {
 		atrio.addAttrezzo(pietra);	// prova
 	}
 	
-	/**
-	 * il gioco comincia nell'atrio
-	 */
-	public void setStanzaIniziale() {
-		stanzaIniziale = atrio;
+	public void setStanzaIniziale(Stanza iniziale) {
+		stanzaIniziale = iniziale;
 	}
 	
-	/**
-	 * il gioco finisce nella biblioteca
-	 */
-	public void setStanzaFinale() {
-		stanzaFinale = biblioteca;
+	public void setStanzaVincente(Stanza vincente) {
+		stanzaVincente = vincente;
 	}
 
 	/**
@@ -124,8 +118,8 @@ public class Labirinto {
 	 * getter di stanzaFinale
 	 * @return	stanzaFinale
 	 */
-	public Stanza getStanzaFinale() {
-		return stanzaFinale;
+	public Stanza getStanzaVincente() {
+		return stanzaVincente;
 	}
 	
 	

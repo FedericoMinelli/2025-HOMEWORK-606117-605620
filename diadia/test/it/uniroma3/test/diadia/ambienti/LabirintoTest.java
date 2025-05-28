@@ -24,7 +24,7 @@ class LabirintoTest {
 	// verifico che la stanza finale sia quella giusta, cioè Biblioteca
 	@Test
 	void testGetStanzaFinale() {
-		assertEquals("Biblioteca", this.labirinto.getStanzaFinale().getNome());
+		assertEquals("Biblioteca", this.labirinto.getStanzaVincente().getNome());
 	}
 
 }
