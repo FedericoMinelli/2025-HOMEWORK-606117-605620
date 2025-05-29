@@ -51,11 +51,15 @@ public class Borsa {
 	}
 	
 	public Attrezzo addAttrezzo(String nome,Attrezzo attrezzo) {
-		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) 
-			return this.attrezzi.put(nome, attrezzo);
-		
-		return null;
-		
+		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) {
+			this.attrezzi.put(nome, attrezzo);		// put ritorna il valore associato precedentemente alla chiave, quindi null se l'attrezzo non era presente
+			return attrezzo;			// voglio però che ritorni l'attrezzo appena aggiunto
+		}
+		return null;			// se non lo puo fare allora ritorna null
+	}
+	
+	public Attrezzo addAttrezzo(Attrezzo attrezzo) {
+		return addAttrezzo(attrezzo.getNome(), attrezzo);
 	}
 	
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
@@ -63,12 +67,6 @@ public class Borsa {
 		Collections.sort(risultato, new ComparatorePerNomeEPeso());
 		return risultato;
 	}
-	
-//	public List<Attrezzo> getContenutoOrdinatoPerNome(){
-//		final List <Attrezzo> risultato = new ArrayList<>(this.getAttrezzi());
-//		Collections.sort(risultato);
-//		return risultato;
-//	}
 	
 	public Collection<Attrezzo> getAttrezzi() {
 		return this.attrezzi.values();

@@ -142,8 +142,12 @@ public class Stanza {
 		return rimosso == attrezzo;
 	}
 
-	public Set<String> getDirezioni() {
-		return new HashSet<String>(this.stanzeAdiacenti.keySet());
+//	public Set<String> getDirezioni() {
+//		return new HashSet<String>(this.stanzeAdiacenti.keySet());
+//	}
+	
+	public List<String> getDirezioni() {
+		return new ArrayList<String>(this.stanzeAdiacenti.keySet());
 	}
 	
 	public Map<String, Stanza> getMapStanzeAdiacenti() {

@@ -15,19 +15,21 @@ public class LabirintoBuilder {
 	private static final List<String> direzioniPossibili = Arrays.asList("nord","sud","ovest","est");
 	
 	public LabirintoBuilder() {
+		this.labirinto = new Labirinto();
 		this.stanze = new HashMap<>();
 	}
 	
 	public LabirintoBuilder addStanzaIniziale(String iniziale) {
 		this.ultimaStanzaAggiunta = new Stanza(iniziale);
 		this.labirinto.setStanzaIniziale(ultimaStanzaAggiunta);		// crea e aggiunge la stanza iniziale
-		
+		this.stanze.put(iniziale, ultimaStanzaAggiunta);
 		return this;
 	}
 	
 	public LabirintoBuilder addStanzaVincente(String vincente) {
 		this.ultimaStanzaAggiunta = new Stanza(vincente);
 		this.labirinto.setStanzaVincente(ultimaStanzaAggiunta);
+		this.stanze.put(vincente, ultimaStanzaAggiunta);
 		return this;
 	}
 	
@@ -41,11 +43,21 @@ public class LabirintoBuilder {
 	}
 	
 	public LabirintoBuilder addAdiacenza(String riferimento, String adiacente, String direzione) {
-		if(riferimento == null) return this;
-		if(!direzioniPossibili.contains(direzione)) return this;
-		if(stanze.containsKey(adiacente))
+		if(riferimento == null || adiacente == null) { 
+			System.out.println("Problema");
+			return this;	// non faccio nulla se ho argomenti null per le stanze
+		}
+		if(!direzioniPossibili.contains(direzione)) return this;	// non faccio nulla ste sto l'argomento direzione contiene una direzione non conosciuta
+		
+		// se la stanza con nome del parametro "adiacente" collego quella...
+		if(stanze.containsKey(adiacente)) {
 			this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, this.stanze.get(adiacente));
-		this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, new Stanza(adiacente));
+			return this;
+		}
+		// ...altrimenti ne creo una nuova e l'aggiungo alla mappa di stanze esistenti
+		Stanza nuovaStanza = new Stanza(adiacente);
+		this.stanze.put(adiacente, nuovaStanza);
+		this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, nuovaStanza);
 		return this;
 	}
 	
