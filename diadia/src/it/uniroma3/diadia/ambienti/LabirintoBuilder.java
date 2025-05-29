@@ -1,6 +1,5 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,21 +15,19 @@ public class LabirintoBuilder {
 	private static final List<String> direzioniPossibili = Arrays.asList("nord","sud","ovest","est");
 	
 	public LabirintoBuilder() {
-		this.labirinto = new Labirinto();
 		this.stanze = new HashMap<>();
 	}
 	
 	public LabirintoBuilder addStanzaIniziale(String iniziale) {
 		this.ultimaStanzaAggiunta = new Stanza(iniziale);
 		this.labirinto.setStanzaIniziale(ultimaStanzaAggiunta);		// crea e aggiunge la stanza iniziale
-		this.stanze.put(iniziale, ultimaStanzaAggiunta);
+		
 		return this;
 	}
 	
 	public LabirintoBuilder addStanzaVincente(String vincente) {
 		this.ultimaStanzaAggiunta = new Stanza(vincente);
 		this.labirinto.setStanzaVincente(ultimaStanzaAggiunta);
-		this.stanze.put(vincente, ultimaStanzaAggiunta);
 		return this;
 	}
 	

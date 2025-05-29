@@ -44,7 +44,6 @@ public class Stanza {
 	 * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
 	 */
 	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-		if(direzione == null) return;
 		this.stanzeAdiacenti.put(direzione, stanza);
 	}
 
@@ -166,6 +165,7 @@ public class Stanza {
 	public int hashCode() {
 		return this.getClass().hashCode() + this.getNome().hashCode();
 	}
+
 
 
 

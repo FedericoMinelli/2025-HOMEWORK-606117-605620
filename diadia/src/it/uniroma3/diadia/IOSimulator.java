@@ -1,17 +1,21 @@
 package it.uniroma3.diadia;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class IOSimulator implements IO{
 	
-	private String[] righeDaLeggere;
+	private List<String> righeDaLeggere;
 	private int indiceRighe;
-	private String[] messaggi;
+	private List<String> messaggi;
 	private int indiceMessaggiM;		// M = mostrati
 	private int indiceMessaggiP;		// P = prodotti
 
-	public IOSimulator(String[] righeDaLeggere) {
+	public IOSimulator(List<String> righeDaLeggere) {
 		this.righeDaLeggere = righeDaLeggere;
 		this.indiceRighe = 0;
-		this.messaggi = new String[500];
+		this.messaggi = new ArrayList<>();
 		this.indiceMessaggiM = 0;
 		this.indiceMessaggiP = 0;
 	}
@@ -21,7 +25,7 @@ public class IOSimulator implements IO{
 	 * istanzia una casella dell'array di messaggi 
 	 * */
 	public void mostraMessaggio(String messaggio) {
-		this.messaggi[this.indiceMessaggiP] = messaggio;
+		this.messaggi.add(messaggio);
 		this.indiceMessaggiP++;
 	}
 	
@@ -38,7 +42,7 @@ public class IOSimulator implements IO{
 	 * returna una casella dell'array di righe da leggere 
 	 * */
 	public String leggiRiga() {
-		String rigaLetta = this.righeDaLeggere[this.indiceRighe];
+		String rigaLetta = this.righeDaLeggere.get(this.indiceRighe);
 		this.indiceRighe++;
 		return rigaLetta;
 	}
@@ -47,7 +51,7 @@ public class IOSimulator implements IO{
 	 * returna una casella dell'array di messaggi 
 	 * */
 	public String nextMessaggio() {
-		String next = this.messaggi[this.indiceMessaggiM];
+		String next = this.messaggi.get(indiceMessaggiM);
 		this.indiceMessaggiM++;
 		return next;
 	}

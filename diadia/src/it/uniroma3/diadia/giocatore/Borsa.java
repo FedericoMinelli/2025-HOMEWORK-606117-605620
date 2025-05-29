@@ -28,6 +28,8 @@ public class Borsa {
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
 		this.attrezzi= new HashMap<String, Attrezzo>();
+		
+		
 	}
 
 	/**
@@ -42,28 +44,18 @@ public class Borsa {
 	public int getPeso() {
 		
 		int pesototale=0;
-		for(Attrezzo attrezzo : attrezzi.values()) {
+		for(Attrezzo attrezzo :  attrezzi.values()) {
 			pesototale += attrezzo.getPeso();
 		}
 		return pesototale;
 	}
 	
-	public boolean addAttrezzo(Attrezzo attrezzo) {
-		if(attrezzo == null) return false;
-		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) { 
-			this.attrezzi.put(attrezzo.getNome(), attrezzo);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean addAttrezzo(String nome, Attrezzo attrezzo) {
-		if(attrezzo == null) return false;
-		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) { 
-			this.attrezzi.put(nome, attrezzo);
-			return true;
-		}
-		return false;
+	public Attrezzo addAttrezzo(String nome,Attrezzo attrezzo) {
+		if(attrezzo.getPeso()+this.getPeso()<=this.pesoMax) 
+			return this.attrezzi.put(nome, attrezzo);
+		
+		return null;
+		
 	}
 	
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
@@ -107,11 +99,6 @@ public class Borsa {
 		}
 		return peso2attrezzi;
 	}
-	
-//	public SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso(){
-//		
-//	}
-	
 	public boolean isEmpty() {
 		return this.getNumeroAttrezzi() == 0;
 	}
@@ -139,7 +126,7 @@ public class Borsa {
 
 		if (!this.isEmpty()) {
 			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-			for (Attrezzo a : attrezzi.values()) {
+			for (Attrezzo a:attrezzi.values()) {
 				s.append(a.toString()+" ");
 			}
 		}

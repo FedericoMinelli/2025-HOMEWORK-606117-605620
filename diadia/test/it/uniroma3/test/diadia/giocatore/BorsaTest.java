@@ -30,7 +30,7 @@ class BorsaTest {
 		this.vuota= new Borsa(15);
 		this.piuma=new Attrezzo("piuma", 1);
 		this.martello=new Attrezzo("martello",10);
-		this.martelletto=new Attrezzo("martelletto",2);
+		this.martelletto=new Attrezzo("martello",2);
 		this.borsa2= new Borsa(50);
 	}
 
@@ -89,16 +89,16 @@ class BorsaTest {
 		assertTrue(this.borsa.hasAttrezzo("osso"));
 	}
 	
-//	@Test
-//	void testAddAttrezzo_BorsaTroppoPesante() {
-//		this.borsa.addAttrezzo("osso",this.osso);
-//		assertNull(this.borsa.addAttrezzo("spada",this.spada));		// provo ad aggiungerne un altro
-//	}
+	@Test
+	void testAddAttrezzo_BorsaTroppoPesante() {
+		this.borsa.addAttrezzo("osso",this.osso);
+		assertNull(this.borsa.addAttrezzo("spada",this.spada));		// provo ad aggiungerne un altro
+	}
 	
 	@Test
 	void testAddAttrezzo_OltreLimiteDiPeso() {
 		this.borsa.addAttrezzo("osso",this.osso);
-		assertFalse(this.borsa.addAttrezzo("spada",this.spada));		// provo ad aggiungerne un altro
+		assertNull(this.borsa.addAttrezzo("spada",this.spada));		// provo ad aggiungerne un altro
 	}
 	
 	@Test
@@ -135,11 +135,6 @@ class BorsaTest {
 		this.borsa2.addAttrezzo("martelletto",this.martelletto);
 		assertEquals(2, borsa2.getNumeroAttrezzi());
 		assertEquals(2, borsa2.getContenutoOrdinatoPerNome().size());
-//		this.borsa2.addAttrezzo(osso);
-//		this.borsa2.addAttrezzo(spada);
-//		this.borsa2.addAttrezzo(new Attrezzo("a", 2));
-//		assertEquals(null, borsa2.getContenutoOrdinatoPerNome());
-		
 	}
 
 }

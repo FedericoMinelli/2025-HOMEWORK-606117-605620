@@ -2,7 +2,9 @@ package it.uniroma3.test.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.DiaDia;
@@ -10,12 +12,13 @@ import it.uniroma3.diadia.IOSimulator;
 
 class IOSimulatorTest {
 
+	
+	private ArrayList<String> comandi;
 	private IOSimulator io;
-	private String[] comandi;
 
 	@Test
 	void test_SimulazioneVinta() {
-		this.comandi = new String[] {"vai sud", "vai nord", "vai nord"};
+		this.comandi = new ArrayList<>(List.of("vai sud", "vai nord", "vai nord"));
 		this.io = new IOSimulator(comandi);
 		
 		DiaDia gioco = new DiaDia(io);		// avvio una partita simulata 
@@ -33,7 +36,7 @@ class IOSimulatorTest {
 	
 	@Test
 	void test_SimulazionePersaConComandoFine() {
-		this.comandi = new String[] {"vai sud", "vai nord", "prendi", "guarda", "prendi osso", "fine"};
+		this.comandi = new ArrayList<>(List.of("vai sud", "vai nord", "prendi", "guarda", "prendi osso", "fine"));
 		this.io = new IOSimulator(comandi);
 		
 		DiaDia gioco = new DiaDia(io);
@@ -51,10 +54,10 @@ class IOSimulatorTest {
 	
 	@Test
 	void test_SimulazionePersaPerCFU() {
-		this.comandi = new String[] {"vai sud", "vai nord", "vai sud", "vai nord", "vai sud", 
+		this.comandi = new ArrayList<>(List.of("vai sud", "vai nord", "vai sud", "vai nord", "vai sud", 
 									"vai nord", "vai sud", "vai nord", "vai sud", "vai nord",
 									"vai sud", "vai nord", "vai sud", "vai nord", "vai sud",
-									"vai nord", "vai sud", "vai nord", "vai sud", "vai nord"};
+									"vai nord", "vai sud", "vai nord", "vai sud", "vai nord"));
 		this.io = new IOSimulator(comandi);
 		
 		DiaDia gioco = new DiaDia(io);
