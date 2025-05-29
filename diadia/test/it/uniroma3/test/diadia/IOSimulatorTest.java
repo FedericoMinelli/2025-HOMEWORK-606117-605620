@@ -12,8 +12,9 @@ import it.uniroma3.diadia.IOSimulator;
 
 class IOSimulatorTest {
 
+	
+	private ArrayList<String> comandi;
 	private IOSimulator io;
-	private List<String> comandi;
 
 	@Test
 	void test_SimulazioneVinta() {
