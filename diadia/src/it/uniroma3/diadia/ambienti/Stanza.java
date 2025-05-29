@@ -143,9 +143,16 @@ public class Stanza {
 		return rimosso == attrezzo;
 	}
 
-
 	public Set<String> getDirezioni() {
 		return new HashSet<String>(this.stanzeAdiacenti.keySet());
+	}
+	
+	public Map<String, Stanza> getMapStanzeAdiacenti() {
+		return this.stanzeAdiacenti;
+	}
+	
+	public boolean isMagica() {
+		return this.getClass()==StanzaMagica.class;
 	}
 	
 	@Override
@@ -158,15 +165,6 @@ public class Stanza {
 	@Override
 	public int hashCode() {
 		return this.getClass().hashCode() + this.getNome().hashCode();
-	}
-
-
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
-		return this.stanzeAdiacenti;
-	}
-	
-	public boolean isMagica() {
-		return this.getClass()==StanzaMagica.class;
 	}
 
 

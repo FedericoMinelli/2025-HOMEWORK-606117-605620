@@ -1,10 +1,10 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -13,6 +13,7 @@ public class LabirintoBuilder {
 	private Labirinto labirinto;
 	private Map<String, Stanza> stanze;
 	private Stanza ultimaStanzaAggiunta;
+	private static final List<String> direzioniPossibili = Arrays.asList("nord","sud","ovest","est");
 	
 	public LabirintoBuilder() {
 		this.labirinto = new Labirinto();
@@ -44,6 +45,7 @@ public class LabirintoBuilder {
 	
 	public LabirintoBuilder addAdiacenza(String riferimento, String adiacente, String direzione) {
 		if(riferimento == null) return this;
+		if(!direzioniPossibili.contains(direzione)) return this;
 		if(stanze.containsKey(adiacente))
 			this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, this.stanze.get(adiacente));
 		this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, new Stanza(adiacente));
@@ -79,6 +81,6 @@ public class LabirintoBuilder {
 	public LabirintoBuilder addStanzaBuia(String nome, String attrezzo) {
 		this.ultimaStanzaAggiunta = new StanzaBuia(nome, attrezzo);
 		this.stanze.put(nome, ultimaStanzaAggiunta);
-		return null;
+		return this;
 	}
 }
