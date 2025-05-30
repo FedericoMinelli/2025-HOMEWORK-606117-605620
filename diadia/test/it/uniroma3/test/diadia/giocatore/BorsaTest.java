@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+import java.util.SortedSet;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +33,7 @@ class BorsaTest {
 		this.vuota= new Borsa(15);
 		this.piuma=new Attrezzo("piuma", 1);
 		this.martello=new Attrezzo("martello",10);
-		this.martelletto=new Attrezzo("martello",2);
+		this.martelletto=new Attrezzo("martelletto",2);
 		this.borsa2= new Borsa(50);
 	}
 
@@ -128,13 +131,28 @@ class BorsaTest {
 		assertEquals(11, this.vuota.getPeso());
 	}
 	@Test
-	void testBorsaGetConetenutoNome() {
+	void testBorsaGetContenutoNome() {
 		this.borsa2.addAttrezzo("martello",this.martello);
 		assertEquals(1, borsa2.getNumeroAttrezzi());
 		assertEquals(1, borsa2.getContenutoOrdinatoPerNome().size());
 		this.borsa2.addAttrezzo("martelletto",this.martelletto);
 		assertEquals(2, borsa2.getNumeroAttrezzi());
 		assertEquals(2, borsa2.getContenutoOrdinatoPerNome().size());
+	}
+	
+	@Test
+	void testBorsa_GetSortedSetOrdinatoPerPeso() {
+		borsa2.addAttrezzo(spada);
+		borsa2.addAttrezzo(martello);
+		
+		SortedSet<Attrezzo> ordinati = borsa2.getSortedSetOrdinatoPerPeso();
+		Iterator<Attrezzo> it = ordinati.iterator();
+		
+		assertEquals(martello, it.next());
+		assertEquals(spada, it.next());
+		
+		
+		
 	}
 
 }

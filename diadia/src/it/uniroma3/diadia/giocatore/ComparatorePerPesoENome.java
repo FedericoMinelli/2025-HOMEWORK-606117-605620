@@ -5,7 +5,7 @@ import java.util.Comparator;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 
-public class ComparatorePerNomeEPeso implements Comparator<Attrezzo> {
+public class ComparatorePerPesoENome implements Comparator<Attrezzo> {
 
 	@Override
 	public int compare(Attrezzo a1, Attrezzo a2) {

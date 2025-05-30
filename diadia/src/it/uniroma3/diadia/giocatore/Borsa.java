@@ -64,7 +64,7 @@ public class Borsa {
 	
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
 		final List <Attrezzo> risultato = new ArrayList<>(this.getAttrezzi());
-		Collections.sort(risultato, new ComparatorePerNomeEPeso());
+		Collections.sort(risultato, new ComparatorePerPesoENome());
 		return risultato;
 	}
 	
@@ -75,6 +75,12 @@ public class Borsa {
 	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
 		return new TreeSet<>(this.getAttrezzi());
 
+	}
+	
+	public SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso(){
+		SortedSet<Attrezzo> ordinati = new TreeSet<>(new ComparatorePerPesoENome());
+		ordinati.addAll(this.getAttrezzi());
+		return ordinati;
 	}
 	
 	public int getNumeroAttrezzi() {
