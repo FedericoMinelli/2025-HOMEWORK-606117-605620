@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -154,5 +156,34 @@ class BorsaTest {
 		
 		
 	}
-
+	@Test
+	void getContenutoOrdinatoPerPeso(){
+		this.borsa2.addAttrezzo(osso);
+		assertEquals(1, this.borsa2.getNumeroAttrezzi());
+		assertEquals(1, this.borsa2.getContenutoOrdinatoPerPeso().size());
+		this.borsa2.addAttrezzo(piuma);
+		assertEquals(2, this.borsa2.getNumeroAttrezzi());
+		assertEquals(2, this.borsa2.getContenutoOrdinatoPerPeso().size());
+	}
+	@Test
+	void getContenutoRaggruppatoPerPeso() {
+		borsa2.addAttrezzo(spada);
+		borsa2.addAttrezzo(martello);
+		this.borsa2.addAttrezzo(osso);
+		this.borsa2.addAttrezzo(piuma);
+		this.borsa2.addAttrezzo("martelletto",this.martelletto);
+		assertEquals(5, this.borsa2.getNumeroAttrezzi());
+		Map<Integer,Set<Attrezzo>> raggruppati = this.borsa2.getContenutoRaggruppatoPerPeso();
+		assertTrue(raggruppati.get(10).contains(spada));
+		assertTrue(raggruppati.get(10).contains(martello));
+		assertTrue(raggruppati.get(2).contains(osso));
+		assertTrue(raggruppati.get(2).contains(martelletto));
+		assertTrue(raggruppati.get(1).contains(piuma));
+		assertFalse(raggruppati.get(2).contains(spada));
+		
+		assertEquals(2, raggruppati.get(2).size());
+		assertEquals(2, raggruppati.get(10).size());
+		assertEquals(1, raggruppati.get(1).size());
+	}
+	
 }
