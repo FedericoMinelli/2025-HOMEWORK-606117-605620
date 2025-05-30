@@ -15,7 +15,7 @@ public class ComandoPrendi implements Comando{
 	}
 	
 	public ComandoPrendi(String nomeAttrezzo) {
-		this.nomeAttrezzo = nomeAttrezzo;				
+		this.nomeAttrezzo = nomeAttrezzo;
 	}
 	
 	@Override

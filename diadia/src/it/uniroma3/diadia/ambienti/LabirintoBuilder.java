@@ -33,6 +33,7 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
+	// aggiunge un attrezzo all'ultima stanza aggiunta
 	public LabirintoBuilder addAttrezzo(String nome, int peso) {
 		// se esiste una stanza allora posso aggiungere un attrezzo...
 		if(this.ultimaStanzaAggiunta != null)
