@@ -1,29 +1,25 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPosa implements Comando{
+public class ComandoPosa extends AbstractComando{
 
+	private static final String NOME = "posa";
 	private String nomeAttrezzo;
-	private IO io;
-	
-	@Override
-	public void setIO(IO io) {
-		this.io = io;
-	}
 
 	public ComandoPosa(String nomeAttrezzo) {
-		this.nomeAttrezzo = nomeAttrezzo;				
+		super(NOME, nomeAttrezzo);
+		this.nomeAttrezzo = nomeAttrezzo;
 	}
 
 	@Override
 	public void esegui(Partita partita) {
-
+		this.nomeAttrezzo = super.getParametro();		// stesso motivo scritto in ComandoVai
+		
 		// non viene specificato l'attrezzo ma viene chiamato solo il comando
 		if(nomeAttrezzo == null) {
-			io.mostraMessaggio("Quale attrezzo vuoi posare? (Usa comando guarda per vedere gli attrezzi)");
+			super.getIO().mostraMessaggio("Quale attrezzo vuoi posare? (Usa comando guarda per vedere gli attrezzi)");
 			return;
 		}
 
@@ -34,31 +30,15 @@ public class ComandoPosa implements Comando{
 		if(a!=null) {
 			if(partita.getStanzaCorrente().addAttrezzo(a)) {		 // vedo se posso aggiungerlo, se no....
 				partita.getGiocatore().giocatoreRemoveAttrezzo(a);   // rimuovo dalla borsa
-				io.mostraMessaggio("Fatto!");
+				super.getIO().mostraMessaggio("Fatto!");
 				return;
 			}
-			io.mostraMessaggio("Stanza al completo");		// .... vuol dire che la stanza è al completo
+			super.getIO().mostraMessaggio("Stanza al completo");		// .... vuol dire che la stanza è al completo
 			return;
 		}
 		// ... attrezzo non trovato
-		io.mostraMessaggio("Attrezzo non trovato");
+		super.getIO().mostraMessaggio("Attrezzo non trovato");
 		return;
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-
-	}
-
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
-	}
-
-	@Override
-	public String getNome() {
-		return "posa";
 	}
 
 }

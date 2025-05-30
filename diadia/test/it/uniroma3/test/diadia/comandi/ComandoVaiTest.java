@@ -13,7 +13,6 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.ComandoVai;
 import it.uniroma3.diadia.ambienti.StanzaBloccata;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.ComandoGuarda;
 import it.uniroma3.diadia.comandi.ComandoPosa;
 import it.uniroma3.diadia.comandi.ComandoPrendi;
@@ -100,6 +99,7 @@ class ComandoVaiTest {
 		partita.getStanzaCorrente().addAttrezzo(new Attrezzo("chiave", 1));
 		guarda.esegui(partita);
 		vai2.setParametro("ovest");		// provo ad andare nella direzione bloccata
+		System.out.println("prova: "+vai2.getParametro());
 		vai2.esegui(partita);
 		assertEquals(stanza2, partita.getStanzaCorrente());
 		assertSame(stanza2, partita.getStanzaCorrente());

@@ -9,7 +9,7 @@ import it.uniroma3.diadia.comandi.*;
 
 class FdCFisarmonicaTest {		// FdC è l'abbreviazione di FabbricaDiComandi
 
-	private Comando comando;
+	private AbstractComando comando;
 	
 	@BeforeEach
 	void setUp() throws Exception {
