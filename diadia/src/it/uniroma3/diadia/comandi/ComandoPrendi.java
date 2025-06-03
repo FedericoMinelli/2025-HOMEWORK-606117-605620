@@ -8,6 +8,10 @@ public class ComandoPrendi extends AbstractComando{
 	private static final String NOME = "prendi";
 	private String nomeAttrezzo;
 	
+	public ComandoPrendi() {		// stesso motivo scritto in ComandoVai
+		this(null);
+	}
+	
 	public ComandoPrendi(String nomeAttrezzo) {
 		super(NOME, nomeAttrezzo);
 		this.nomeAttrezzo = nomeAttrezzo;

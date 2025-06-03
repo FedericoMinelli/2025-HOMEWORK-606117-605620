@@ -7,10 +7,14 @@ import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 public class ComandoRegala extends AbstractComando{
 	
-	private static final String REGALA = "regala attrezzo";
+	private static final String REGALA = "regala attrezzo";		// questo dovrebbe essere il nome del comando, perche l'hai scritto cosi?
 	private static final String MEESSAGGIO_A_CHI = "a chi vorresti regalare l'attrezzo?";
 	private Attrezzo attrezzo;
 	private Borsa borsa;
+	
+	public ComandoRegala() {		// stesso motivo scritto in ComandoVai
+		this(null);
+	}
 	
 	public ComandoRegala(Attrezzo attrezzo) {
 		super(REGALA,attrezzo.getNome());
@@ -24,7 +28,7 @@ public class ComandoRegala extends AbstractComando{
 			super.getIO().mostraMessaggio(MEESSAGGIO_A_CHI);
 			return;
 		}
-		super.getIO().mostraMessaggio("quale attrezzo vuoi regalare?");
+		super.getIO().mostraMessaggio("quale attrezzo vuoi regalare?");		// perche questa riga??
 		if(this.borsa.hasAttrezzo(this.attrezzo.getNome())) {
 			partita.getStanzaCorrente().addAttrezzo(this.attrezzo);
 			super.getIO().mostraMessaggio("attrezzo regalato");

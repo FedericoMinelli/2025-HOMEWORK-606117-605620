@@ -3,7 +3,7 @@ package it.uniroma3.diadia;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.AbstractComando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.*;
 
 
 /**
@@ -63,7 +63,7 @@ public class DiaDia {
 	
 	private boolean processaIstruzione(String istruzione) {
 		AbstractComando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
+		FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva();
 		
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.setIO(this.io);

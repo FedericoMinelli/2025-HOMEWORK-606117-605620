@@ -8,6 +8,10 @@ public class ComandoVai extends AbstractComando{
 	private static final String NOME = "vai";
 	private String direzione;	// parametro	
 		
+	public ComandoVai() {		// ne ho bisogno se no FabbricaDiComandiRiflessiva non creava l'istanza giusta perche usava un costruttore no-args di defaul per questa classe
+		this(null);
+	}
+	
 	public ComandoVai(String direzione) {
 		super(NOME, direzione);
 		this.direzione = direzione;

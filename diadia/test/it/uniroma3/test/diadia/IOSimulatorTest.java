@@ -18,7 +18,7 @@ class IOSimulatorTest {
 
 	@Test
 	void test_SimulazioneVinta() {
-		this.comandi = new ArrayList<>(List.of("vai sud", "vai nord", "vai nord"));
+		this.comandi = new ArrayList<>(List.of("vai nord"));
 		this.io = new IOSimulator(comandi);
 		
 		DiaDia gioco = new DiaDia(io);		// avvio una partita simulata 

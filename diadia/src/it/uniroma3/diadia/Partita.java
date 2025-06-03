@@ -50,7 +50,10 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return getStanzaCorrente() == getStanzaVincente();	
+		System.out.println("Stanza corrente: " + getStanzaCorrente());
+	    System.out.println("Stanza vincente: " + getStanzaVincente());
+	    System.out.println("Stesso oggetto? " + (getStanzaCorrente() == getStanzaVincente()));
+		return getStanzaCorrente().equals(getStanzaVincente());	
 	}
 
 	/**
