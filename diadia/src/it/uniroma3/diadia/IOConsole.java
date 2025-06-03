@@ -6,7 +6,7 @@ public class IOConsole implements IO{
 	
 	@Override
 	public void mostraMessaggio(String msg) {
-		System.out.println(msg);
+		 System.out.println(msg);
 	}
 	
 	@Override

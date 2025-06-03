@@ -5,11 +5,13 @@ import java.util.Map;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Strega extends AbstractPersonaggio{
 	
 	private static final String MESSAGGIO_NEGATIVO = "Sei un maleducato! Ora andrai nella stanza piu vuota!";
 	private static final String MESSAGGIO_POSITIVO = "Ma che gentile che sei! Ora andrai nella stanza piu rifornita";
+	private static final String MESSAGGIO_REGALO = "ah ah ah questo me lo tengo io ahahahahahahahaha";
 	
 	public Strega(String nome, String presentazione) {
 		super(nome, presentazione);
@@ -49,7 +51,8 @@ public class Strega extends AbstractPersonaggio{
 
 	@Override
 	public String riceviRegalo(Attrezzo attrezzo, Partita partita) {
-		// TODO Auto-generated method stub
-		return null;
+		Giocatore giocatore = partita.getGiocatore();
+		partita.getStanzaCorrente().removeAttrezzo(attrezzo);
+		return MESSAGGIO_REGALO;
 	}
 }
