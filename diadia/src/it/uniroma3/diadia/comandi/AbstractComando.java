@@ -36,7 +36,6 @@ public abstract class AbstractComando {
 		this.parametro = parametro;
 	}
 	
-	
 	public abstract void esegui(Partita partita);
 
 }
