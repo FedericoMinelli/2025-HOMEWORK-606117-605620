@@ -2,13 +2,14 @@ package it.uniroma3.test.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.ComandoVai;
 import it.uniroma3.diadia.ambienti.StanzaBloccata;
@@ -33,7 +34,8 @@ class ComandoVaiTest {
 		 * assicurare che sia inizializzato il suo paramentro "IO io" senno
 		 * verrà sollevata una NullPointerException.
 		 */
-		io = new IOConsole();
+		Scanner scanner = new Scanner(System.in);
+		io = new IOConsole(scanner);
 		partita = new Partita();
 		vai = new ComandoVai("nord");
 		vai.setIO(io);
@@ -107,7 +109,7 @@ class ComandoVaiTest {
 	
 	@Test
 	void testStanzaBuiaLabirintoBuilder_BuioPesto() {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addStanzaBuia("cripta", "torcia")
 				.addAdiacenza("atrio", "cripta", "nord")
@@ -121,7 +123,7 @@ class ComandoVaiTest {
 	
 	@Test
 	void testStanzaBuiaLabirintoBuilder_CiStaVisibilita() {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addAttrezzo("torcia", 1)
 				.addStanzaBuia("cripta", "torcia")
@@ -139,7 +141,7 @@ class ComandoVaiTest {
 	
 	@Test
 	void testLabirintoBuilder_VittoriaSuperandoTutteStanze() {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addAttrezzo("torcia", 1)
 				.addStanzaVincente("uscita")

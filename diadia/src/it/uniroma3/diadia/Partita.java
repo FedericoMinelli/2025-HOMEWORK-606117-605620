@@ -26,9 +26,12 @@ public class Partita {
 	// costruttore per partite nel labirinto di default
 	public Partita(){
 		this.labirinto = Labirinto.newBuilder()  // non sono sicuro sia il modo migliore
-				.addStanzaIniziale("LabCampusOne")
+				 .addStanzaIniziale("LabCampusOne")
 				 .addStanzaVincente("Biblioteca")
-				 .addAdiacenza("LabCampusOne","Biblioteca","ovest")
+				 .addStanza("N11")
+				 .addAdiacenza("LabCampusOne","Biblioteca","nord")	// prima era ovest
+				 .addAdiacenza("LabCampusOne","N11","sud")
+				 .addAdiacenza("N11","LabCampusOne","nord")
 				 .getLabirinto();// creazione riferimento di un'istanza Labirinto
 		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
 		stanzaVincente = labirinto.getStanzaVincente();		// prendo da labirinto l'informazione della stanza vincente
@@ -54,9 +57,9 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		System.out.println("Stanza corrente: " + getStanzaCorrente());
-	    System.out.println("Stanza vincente: " + getStanzaVincente());
-	    System.out.println("Stesso oggetto? " + (getStanzaCorrente() == getStanzaVincente()));
+//		System.out.println("Stanza corrente: " + getStanzaCorrente());
+//	    System.out.println("Stanza vincente: " + getStanzaVincente());
+//	    System.out.println("Stesso oggetto? " + (getStanzaCorrente() == getStanzaVincente()));
 		return getStanzaCorrente().equals(getStanzaVincente());	
 	}
 

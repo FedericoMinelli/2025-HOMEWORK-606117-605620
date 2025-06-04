@@ -2,6 +2,8 @@ package it.uniroma3.test.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +21,10 @@ class ComandoPosaTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		Scanner scanner = new Scanner(System.in);
 		partita = new Partita();
 		posa = new ComandoPosa("prova");
-		posa.setIO(new IOConsole());
+		posa.setIO(new IOConsole(scanner));
 	}
 
 	@Test
