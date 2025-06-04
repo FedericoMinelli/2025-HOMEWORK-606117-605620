@@ -29,6 +29,10 @@ public class Cane extends AbstractPersonaggio{
 		if(attrezzo.getNome().equals(this.cibo)) {
 			partita.getStanzaCorrente().addAttrezzo(this.attrezzoDelCane);
 		}
+		else {
+			giocatore.setCfu(giocatore.getCfu()-1);
+			return MESSAGGIO_MORSO;
+		}
 		return null;
 	}
 }
