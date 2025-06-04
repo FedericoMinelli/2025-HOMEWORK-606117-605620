@@ -25,7 +25,11 @@ public class Partita {
 
 	// costruttore per partite nel labirinto di default
 	public Partita(){
-		this.labirinto = new Labirinto();	// creazione riferimento di un'istanza Labirinto
+		this.labirinto = Labirinto.newBuilder()  // non sono sicuro sia il modo migliore
+				.addStanzaIniziale("LabCampusOne")
+				 .addStanzaVincente("Biblioteca")
+				 .addAdiacenza("LabCampusOne","Biblioteca","ovest")
+				 .getLabirinto();// creazione riferimento di un'istanza Labirinto
 		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
 		stanzaVincente = labirinto.getStanzaVincente();		// prendo da labirinto l'informazione della stanza vincente
 

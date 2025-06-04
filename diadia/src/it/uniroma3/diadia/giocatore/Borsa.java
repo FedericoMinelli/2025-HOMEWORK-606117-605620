@@ -17,7 +17,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
 	private static final int Peso_massimo_default = 10;
-	private Map<String, Attrezzo> attrezzi;	// da trasformare in una mappa del tipo Map<String, Attrezzo>
+	private Map<String, Attrezzo> attrezzi;	// 
 	private int pesoMax;
 	
 	
