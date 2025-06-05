@@ -201,13 +201,13 @@ class LabirintoTest {
 		String nomeAttrezzo = "attrezzo";
 		int peso = 1;
 		String nomeStanza = "stanza 1";
-		Labirinto.newBuilder()
+		LabirintoBuilder labirinto=Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addStanza(nomeStanza)
-				.addAttrezzo(nomeAttrezzo, peso)
-				.getLabirinto();
-		assertTrue(Labirinto.newBuilder().getListaStanze().get(nomeStanza).getAttrezzi().contains(new Attrezzo (nomeAttrezzo,peso)));
-		assertEquals(new Attrezzo(nomeAttrezzo,peso),Labirinto.newBuilder().getListaStanze().get(nomeStanza).getAttrezzo(nomeAttrezzo));
+				.addAttrezzo(nomeAttrezzo, peso);
+				
+		assertTrue(labirinto.getListaStanze().get(nomeStanza).getAttrezzi().contains(new Attrezzo (nomeAttrezzo,peso)));
+		assertEquals(new Attrezzo(nomeAttrezzo,peso),labirinto.getListaStanze().get(nomeStanza).getAttrezzo(nomeAttrezzo));
 	}
 	
 	@Test
@@ -215,13 +215,13 @@ class LabirintoTest {
 		String nomeAttrezzo = "attrezzo";
 		int peso = 1;
 		String nomeStanza = "stanza 1";
-		Labirinto.newBuilder()
+		LabirintoBuilder labirinto=Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addStanza(nomeStanza)
-				.addAttrezzo(nomeAttrezzo, peso)
-				.getLabirinto();
+				.addAttrezzo(nomeAttrezzo, peso);
+				
 		Attrezzo attrezzo = new Attrezzo(nomeAttrezzo,peso);
-		List<Attrezzo> attrezzi = Labirinto.newBuilder().getListaStanze().get(nomeStanza).getAttrezzi();
+		List<Attrezzo> attrezzi = labirinto.getListaStanze().get(nomeStanza).getAttrezzi();
 		assertEquals(attrezzo,attrezzi.get(attrezzi.indexOf(attrezzo)));
 	}
 	
@@ -232,11 +232,11 @@ class LabirintoTest {
 		int peso1 = 1;
 		int peso2 = 2;
 		String nomeStanza1 = "Stanza 1";
-		Labirinto.newBuilder()		
+		LabirintoBuilder labirinto=Labirinto.newBuilder()		
 				.addStanza(nomeStanza1)
 				.addAttrezzo(nomeAttrezzo1, peso1)
 				.addAttrezzo(nomeAttrezzo2, peso2);
-		Map<String, Stanza> listaStanze = Labirinto.newBuilder().getListaStanze();
+		Map<String, Stanza> listaStanze = labirinto.getListaStanze();
 		assertEquals(new Attrezzo(nomeAttrezzo2,peso2),listaStanze.get(nomeStanza1).getAttrezzo(nomeAttrezzo2));
 		assertEquals(new Attrezzo(nomeAttrezzo1,peso1),listaStanze.get(nomeStanza1).getAttrezzo(nomeAttrezzo1));
 	}
@@ -250,12 +250,12 @@ class LabirintoTest {
 		int peso2 = 2;
 		String nomeStanza1 = "Stanza 1";
 		String nomeStanza2 = "Stanza 2";
-		Labirinto.newBuilder()
+		LabirintoBuilder labirinto=Labirinto.newBuilder()
 				.addStanza(nomeStanza1)
 				.addStanza(nomeStanza2)
 				.addAttrezzo(nomeAttrezzo1, peso1)
 				.addAttrezzo(nomeAttrezzo2, peso2);
-		Map<String, Stanza> listaStanze = Labirinto.newBuilder().getListaStanze();
+		Map<String, Stanza> listaStanze = labirinto.getListaStanze();
 		assertEquals(new Attrezzo(nomeAttrezzo1,peso1),listaStanze.get(nomeStanza2).getAttrezzo(nomeAttrezzo1));
 		assertEquals(new Attrezzo(nomeAttrezzo2,peso2),listaStanze.get(nomeStanza2).getAttrezzo(nomeAttrezzo2));
 	}
@@ -268,12 +268,12 @@ class LabirintoTest {
 		int peso2 = 2;
 		String nomeStanza1 = "Stanza 1";
 		String nomeStanza2 = "Stanza 2";
-		Labirinto.newBuilder()				// questo LabirintoBuilder non viene salvato da nessuna parte, poi...
+		LabirintoBuilder labirinto=Labirinto.newBuilder()				// questo LabirintoBuilder non viene salvato da nessuna parte, poi...
 				.addStanza(nomeStanza1)
 				.addAttrezzo(nomeAttrezzo1, peso1)
 				.addStanza(nomeStanza2)
 				.addAttrezzo(nomeAttrezzo2, peso2);
-		Map<String, Stanza> listaStanze = Labirinto.newBuilder().getListaStanze();		// ...qui viene creato un nuovo LabirintoBuilder, diverso da quello sopra e completamente vuoto, quindi quando si prova ad usare un metodo su questa istanza genera NullPointerException
+		Map<String, Stanza> listaStanze = labirinto.getListaStanze();		// ...qui viene creato un nuovo LabirintoBuilder, diverso da quello sopra e completamente vuoto, quindi quando si prova ad usare un metodo su questa istanza genera NullPointerException
 		assertEquals(new Attrezzo(nomeAttrezzo1,peso1),listaStanze.get(nomeStanza1).getAttrezzo(nomeAttrezzo1));
 		assertEquals(new Attrezzo(nomeAttrezzo2,peso2),listaStanze.get(nomeStanza2).getAttrezzo(nomeAttrezzo2));
 	}
@@ -282,9 +282,9 @@ class LabirintoTest {
 	public void testLabirintoConStanzaMagica() {
 		int sogliaMagica = 1;
 		String nomeStanzaMagica = "Stanza Magica";
-		Labirinto.newBuilder()
+		LabirintoBuilder labirinto=Labirinto.newBuilder()
 				.addStanzaMagica(nomeStanzaMagica, sogliaMagica);
-		StanzaMagica stanzaMagica = (StanzaMagica)Labirinto.newBuilder().getListaStanze().get(nomeStanzaMagica);
+		StanzaMagica stanzaMagica = (StanzaMagica)labirinto.getListaStanze().get(nomeStanzaMagica);
 		assertTrue(stanzaMagica.isMagica());
 	}
 	
@@ -310,7 +310,7 @@ class LabirintoTest {
 	
 	@Test
 	public void testLabirintoConStanzaBloccata_ConPassepartout() {
-		Labirinto.newBuilder()
+		LabirintoBuilder labirinto=Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addStanzaBloccata("stanza bloccata", "nord", "chiave").addAttrezzo("chiave", 1)
 				.addAdiacenza(nomeStanzaIniziale, "stanza bloccata", "nord")
@@ -320,12 +320,12 @@ class LabirintoTest {
 				.addAdiacenza(nomeStanzaVincente, "stanza bloccata", "sud");
 		Stanza stanzaVincente = new Stanza(nomeStanzaVincente);
 		//Asserisce che in presenza di passepartout, invocato il metodo getStanzaAdiacente(), la stanza bloccata ritorna la corretta adiacenza
-		assertEquals(stanzaVincente,Labirinto.newBuilder().getListaStanze().get("stanza bloccata").getStanzaAdiacente("nord"));	
+		assertEquals(stanzaVincente,labirinto.getListaStanze().get("stanza bloccata").getStanzaAdiacente("nord"));	
 	}
 	
 	@Test
 	public void testLabirintoConStanzaBloccata_SenzaPassepartout() {
-		Labirinto.newBuilder()
+		LabirintoBuilder labirinto=Labirinto.newBuilder()
 				.addStanzaIniziale(nomeStanzaIniziale)
 				.addStanzaBloccata("stanza bloccata", "nord", "chiave")
 				.addAdiacenza(nomeStanzaIniziale, "stanza bloccata", "nord")
@@ -335,7 +335,7 @@ class LabirintoTest {
 				.addAdiacenza(nomeStanzaVincente, "stanza bloccata", "sud");
 		Stanza stanzaBloccata = new StanzaBloccata("stanza bloccata", "nord", "chiave");
 		//Asserisce che in caso di mancanza di passepartout, invocato il metodo getStanzaAdiacente(), la stanza bloccata ritorna se stessa
-		assertEquals(stanzaBloccata,Labirinto.newBuilder().getListaStanze().get("stanza bloccata").getStanzaAdiacente("nord"));
+		assertEquals(stanzaBloccata,labirinto.getListaStanze().get("stanza bloccata").getStanzaAdiacente("nord"));
 	}
 	
 	@Test
