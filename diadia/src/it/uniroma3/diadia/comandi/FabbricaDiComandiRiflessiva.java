@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
@@ -14,6 +15,11 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 			nomeComando = scannerDiParole.next();//prima parola: nome del comando
 		if (scannerDiParole.hasNext())
 			parametro = scannerDiParole.next();//seconda parola: eventuale parametro
+		if(nomeComando == null) {
+			comando = new ComandoNonValido();
+			return comando;
+		}
+			
 		try {
 			StringBuilder nomeClasse = new StringBuilder("it.uniroma3.diadia.comandi.Comando");
 			nomeClasse.append( Character.toUpperCase(nomeComando.charAt(0)) ); 
@@ -24,9 +30,17 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 	                .getDeclaredConstructor() 	// restituisce il costruttore no-args
 	                .newInstance();
 			comando.setParametro(parametro);
-		} catch(Exception e) {
+		} catch(ClassNotFoundException e) {
 			comando = new ComandoNonValido();
-		}
+		} catch(NoSuchMethodException e) {
+			comando = new ComandoNonValido();
+		} catch(InvocationTargetException e) {
+			comando = new ComandoNonValido();
+		} catch(IllegalAccessException e) {
+			comando = new ComandoNonValido();
+		} catch(InstantiationException e) {
+			comando = new ComandoNonValido();
+		} 
 		return comando;
 	}  
 }
