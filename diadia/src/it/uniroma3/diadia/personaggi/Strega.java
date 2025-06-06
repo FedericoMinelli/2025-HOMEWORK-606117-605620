@@ -3,6 +3,7 @@ package it.uniroma3.diadia.personaggi;
 import java.util.Map;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Giocatore;
@@ -22,12 +23,12 @@ public class Strega extends AbstractPersonaggio{
 	@Override
 	public String agisci(Partita partita) {
 		
-		Map<String, Stanza> mappa = partita.getStanzaCorrente().getMapStanzeAdiacenti();
+		Map<Direzioni, Stanza> mappa = partita.getStanzaCorrente().getMapStanzeAdiacenti();
 		Stanza nuovaStanza = null;
 		int attrezziPresenti = -1;
 		
 		if(this.haSalutato()) {		// la strega sposta il giocatore nella stanza con piu attrezzi
-			for(String direzione : mappa.keySet()) {
+			for(Direzioni direzione : mappa.keySet()) {
 				if(mappa.get(direzione).numeroAttrezzi() > attrezziPresenti) {
 					attrezziPresenti = mappa.get(direzione).numeroAttrezzi();
 					nuovaStanza = mappa.get(direzione);
@@ -38,7 +39,7 @@ public class Strega extends AbstractPersonaggio{
 		}
 		else {		// altrimenti in quella con meno attrezzi
 			attrezziPresenti = 11;  // al massimo in una stanza possono esserci 10 attrezzi, mettendo 11 alla prima iterazione del for viene salva la prima stanza su cui si itera
-			for(String direzione : mappa.keySet()) {
+			for(Direzioni direzione : mappa.keySet()) {
 				if(mappa.get(direzione).numeroAttrezzi() < attrezziPresenti) {
 					attrezziPresenti = mappa.get(direzione).numeroAttrezzi();
 					nuovaStanza = mappa.get(direzione);

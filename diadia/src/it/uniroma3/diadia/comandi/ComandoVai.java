@@ -1,25 +1,29 @@
 package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVai extends AbstractComando{
 	
 	private static final String NOME = "vai";
-	private String direzione;	// parametro	
+	private Direzioni direzione;	// parametro	
+	private String parametro;
 		
-	public ComandoVai() {		// ne ho bisogno se no FabbricaDiComandiRiflessiva non creava l'istanza giusta perche usava un costruttore no-args di defaul per questa classe
-		this(null);
-	}
 	
-	public ComandoVai(String direzione) {
+	
+	public ComandoVai(Direzioni direzione) {
 		super(NOME, direzione);
 		this.direzione = direzione;
 	}
 	
+	public ComandoVai(String parametro) {
+		super(parametro);
+	}
+
 	@Override
 	public void esegui(Partita partita) {
-		this.direzione = super.getParametro();		// potrei avere la stessa istanza ComandoVai ma con il parametro cambiato, quindi controllo il valore nella superclasse e poi salva in questa
+		this.direzione = super.getDirezione();		// ho cambiato questa riga in questo modo perchè ho cambiato il costruttore
 		
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza prossimaStanza = null;

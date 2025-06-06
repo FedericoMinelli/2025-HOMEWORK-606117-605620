@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.ComandoVai;
@@ -25,6 +26,10 @@ class ComandoVaiTest {
 	private ComandoVai vai2;
 	private ComandoGuarda guarda;
 	private IOConsole io;
+	private Direzioni nord;
+	private Direzioni sud;
+	private Direzioni ovest;
+	private Direzioni est;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -37,9 +42,9 @@ class ComandoVaiTest {
 		Scanner scanner = new Scanner(System.in);
 		io = new IOConsole(scanner);
 		partita = new Partita();
-		vai = new ComandoVai("nord");
+		vai = new ComandoVai(nord);
 		vai.setIO(io);
-		vai2 = new ComandoVai("sud");
+		vai2 = new ComandoVai(sud);
 		vai2.setIO(io);
 		guarda = new ComandoGuarda();
 		guarda.setIO(io);
@@ -58,7 +63,7 @@ class ComandoVaiTest {
 	@Test
 	void testEsegui_DirezioneInesistente() {
 		Stanza stanza = partita.getStanzaCorrente();
-		partita.getStanzaCorrente().impostaStanzaAdiacente("nord", null);
+		partita.getStanzaCorrente().impostaStanzaAdiacente(nord, null);
 		vai.esegui(partita);
 		assertEquals(stanza, partita.getStanzaCorrente()); 
 	}
@@ -67,19 +72,19 @@ class ComandoVaiTest {
 	void testEsegui_DirezioneEsistente() {
 		Stanza stanza = partita.getStanzaCorrente(); 
 		vai.esegui(partita);
-		assertEquals(stanza.getStanzaAdiacente("nord"), partita.getStanzaCorrente());
+		assertEquals(stanza.getStanzaAdiacente(nord), partita.getStanzaCorrente());
 	}
 	
 //	PRIMA DI FARE QUESTI TEST "SCOMMENTARE" GLI IMPORT
 	@Test 
 	void testStanzaBloccata(){
 		Stanza stanza = partita.getStanzaCorrente();		
-		StanzaBloccata bloccata = new StanzaBloccata("bloccata", "ovest", "chiave");
-		stanza.impostaStanzaAdiacente("sud", bloccata);
-		bloccata.impostaStanzaAdiacente("nord", stanza);
+		StanzaBloccata bloccata = new StanzaBloccata("bloccata", ovest, "chiave");
+		stanza.impostaStanzaAdiacente(sud, bloccata);
+		bloccata.impostaStanzaAdiacente(nord, stanza);
 		Stanza stanza2 = new Stanza("non bloccata");
-		stanza2.impostaStanzaAdiacente("est", bloccata);
-		bloccata.impostaStanzaAdiacente("ovest", stanza2);
+		stanza2.impostaStanzaAdiacente(est, bloccata);
+		bloccata.impostaStanzaAdiacente(ovest, stanza2);
 		vai2.esegui(partita);		// mi sposto a sud, quindi nella stanza che ha una direzione bloccata
 		guarda.esegui(partita);
 		vai2.setParametro("ovest");		// provo ad andare nella direzione bloccata
@@ -91,12 +96,12 @@ class ComandoVaiTest {
 	@Test 
 	void testStanzaSbloccata(){
 		Stanza stanza = partita.getStanzaCorrente();
-		StanzaBloccata bloccata = new StanzaBloccata("bloccata", "ovest", "chiave");
-		stanza.impostaStanzaAdiacente("sud", bloccata);
-		bloccata.impostaStanzaAdiacente("nord", stanza);
+		StanzaBloccata bloccata = new StanzaBloccata("bloccata", ovest, "chiave");
+		stanza.impostaStanzaAdiacente(sud, bloccata);
+		bloccata.impostaStanzaAdiacente(nord, stanza);
 		Stanza stanza2 = new Stanza("non bloccata");
-		stanza2.impostaStanzaAdiacente("est", bloccata);
-		bloccata.impostaStanzaAdiacente("ovest", stanza2);
+		stanza2.impostaStanzaAdiacente(est, bloccata);
+		bloccata.impostaStanzaAdiacente(ovest, stanza2);
 		vai2.esegui(partita);		// mi sposto a sud, quindi nella stanza che ha una direzione bloccata
 		partita.getStanzaCorrente().addAttrezzo(new Attrezzo("chiave", 1));
 		guarda.esegui(partita);
@@ -112,7 +117,7 @@ class ComandoVaiTest {
 		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("atrio")
 				.addStanzaBuia("cripta", "torcia")
-				.addAdiacenza("atrio", "cripta", "nord")
+				.addAdiacenza("atrio", "cripta", nord)
 				.getLabirinto();
 		partita = new Partita(lab);
 		vai.esegui(partita);
@@ -127,15 +132,15 @@ class ComandoVaiTest {
 				.addStanzaIniziale("atrio")
 				.addAttrezzo("torcia", 1)
 				.addStanzaBuia("cripta", "torcia")
-				.addAdiacenza("atrio", "cripta", "nord")
+				.addAdiacenza("atrio", "cripta", nord)
 				.getLabirinto();
 		
 		partita = new Partita(lab);
 		vai.esegui(partita);
 		assertEquals("qui c'è buio pesto", partita.getStanzaCorrente().getDescrizione());
 		//System.out.println(partita.getStanzaCorrente().getDescrizione());
-		lab.getStanzaIniziale().getStanzaAdiacente("nord").addAttrezzo(new Attrezzo("torcia", 1));
-		assertEquals(lab.getStanzaIniziale().getStanzaAdiacente("nord").getDescrizione(), partita.getStanzaCorrente().getDescrizione());
+		lab.getStanzaIniziale().getStanzaAdiacente(nord).addAttrezzo(new Attrezzo("torcia", 1));
+		assertEquals(lab.getStanzaIniziale().getStanzaAdiacente(nord).getDescrizione(), partita.getStanzaCorrente().getDescrizione());
 		//System.out.println(partita.getStanzaCorrente().getDescrizione());
 	}
 	
@@ -147,10 +152,10 @@ class ComandoVaiTest {
 				.addStanzaVincente("uscita")
 				.addStanzaBuia("cripta", "torcia")
 				.addAttrezzo("chiave", 1)
-				.addStanzaBloccata("corridoio", "nord", "chiave")
-				.addAdiacenza("atrio", "cripta", "nord")
-				.addAdiacenza("cripta", "corridoio", "nord")
-				.addAdiacenza("corridoio", "uscita", "nord")
+				.addStanzaBloccata("corridoio", nord, "chiave")
+				.addAdiacenza("atrio", "cripta", nord)
+				.addAdiacenza("cripta", "corridoio", nord)
+				.addAdiacenza("corridoio", "uscita", nord)
 				.getLabirinto();
 		partita = new Partita(lab);
 		

@@ -1,15 +1,23 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.util.Arrays;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import it.uniroma3.diadia.CaricatoreLabirinto;
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.Cane;
+import it.uniroma3.diadia.personaggi.Mago;
+import it.uniroma3.diadia.personaggi.Strega;
 
 
 public class Labirinto {
 	
+	private static final Direzioni Nord = null;
+	private static final Direzioni Sud = null;
+	private static final Direzioni Est = null;
+	private static final Direzioni Ovest = null;
 	private Stanza stanzaIniziale;
 	private Stanza stanzaVincente;
 	
@@ -26,6 +34,13 @@ public class Labirinto {
 	private Labirinto() {
 		init();
 	}
+	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+		CaricatoreLabirinto c =
+		new CaricatoreLabirinto(nomeFile);
+		c.carica();
+		this.stanzaIniziale = c.getStanzaIniziale();
+		this.stanzaVincente = c.getStanzaVincente();
+		}
 	
 	/**
      * Crea tutte le stanze e le porte di collegamento
@@ -47,7 +62,7 @@ public class Labirinto {
 		private Labirinto labirinto;
 		private Map<String, Stanza> stanze;
 		private Stanza ultimaStanzaAggiunta;
-		private static final List<String> direzioniPossibili = Arrays.asList("nord","sud","ovest","est");
+		
 		
 		public LabirintoBuilder() {
 			this.labirinto = new Labirinto();
@@ -67,6 +82,29 @@ public class Labirinto {
 			this.stanze.put(vincente, ultimaStanzaAggiunta);
 			return this;
 		}
+		public LabirintoBuilder  addMago(String nome, String presentazione, Attrezzo attrezzo) {
+			Mago m = new Mago(nome, presentazione, attrezzo);
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.setPersonaggio(m);
+			return this;
+		}
+
+		public LabirintoBuilder  addCane(String nome, String presentazione,String cibo, Attrezzo regalo) {
+			Cane c = new Cane(nome, presentazione,cibo,regalo);
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.setPersonaggio(c);
+			return this;
+		}
+
+		public LabirintoBuilder  addStrega(String nome, String presentazione) {
+			Strega s = new Strega(nome, presentazione);
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.setPersonaggio(s);
+			return this;
+		}
 		
 		// aggiunge un attrezzo all'ultima stanza aggiunta
 		public LabirintoBuilder addAttrezzo(String nome, int peso) {
@@ -78,22 +116,14 @@ public class Labirinto {
 			return this;
 		}
 		
-		public LabirintoBuilder addAdiacenza(String riferimento, String adiacente, String direzione) {
+		public LabirintoBuilder addAdiacenza(String riferimento,String adiacente, Direzioni direzione) {
 			if(riferimento == null || adiacente == null) { 
 				System.out.println("Problema");
 				return this;	// non faccio nulla se ho argomenti null per le stanze
 			}
-			if(!direzioniPossibili.contains(direzione)) return this;	// non faccio nulla ste sto l'argomento direzione contiene una direzione non conosciuta
-			
-			// se la stanza con nome del parametro "adiacente" collego quella...
-			if(stanze.containsKey(adiacente)) {
-				this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, this.stanze.get(adiacente));
-				return this;
-			}
-			// ...altrimenti ne creo una nuova e l'aggiungo alla mappa di stanze esistenti
-			Stanza nuovaStanza = new Stanza(adiacente);
-			this.stanze.put(adiacente, nuovaStanza);
-			this.stanze.get(riferimento).impostaStanzaAdiacente(direzione, nuovaStanza);
+			Stanza c = this.stanze.get(riferimento);
+			Stanza a = this.stanze.get(adiacente);
+			c.impostaStanzaAdiacente(direzione, a);
 			return this;
 		}
 		
@@ -117,7 +147,7 @@ public class Labirinto {
 			return this;
 		}
 
-		public LabirintoBuilder addStanzaBloccata(String nome, String dir, String attrezzo) {
+		public LabirintoBuilder addStanzaBloccata(String nome, Direzioni dir, String attrezzo) {
 			this.ultimaStanzaAggiunta = new StanzaBloccata(nome, dir, attrezzo);
 			this.stanze.put(nome, ultimaStanzaAggiunta);
 			return this;
@@ -159,14 +189,14 @@ public class Labirinto {
 	 */
 	public void collegaStanze() {
 		
-		atrio.impostaStanzaAdiacente("nord", biblioteca);
-		atrio.impostaStanzaAdiacente("est", aulaN11);
-		atrio.impostaStanzaAdiacente("sud", aulaN10);
-		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-		aulaN11.impostaStanzaAdiacente("ovest", atrio);
-		aulaN10.impostaStanzaAdiacente("nord", atrio);
-		laboratorio.impostaStanzaAdiacente("est", atrio);
-		biblioteca.impostaStanzaAdiacente("sud", atrio);
+		atrio.impostaStanzaAdiacente(Nord, biblioteca);
+		atrio.impostaStanzaAdiacente(Est, aulaN11);
+		atrio.impostaStanzaAdiacente(Sud, aulaN10);
+		atrio.impostaStanzaAdiacente(Ovest, laboratorio);
+		aulaN11.impostaStanzaAdiacente(Ovest, atrio);
+		aulaN10.impostaStanzaAdiacente(Nord, atrio);
+		laboratorio.impostaStanzaAdiacente(Est, atrio);
+		biblioteca.impostaStanzaAdiacente(Sud, atrio);
 		
 		/* vecchio collegamento, da lasciare in caso di cambi futuri */
 //		atrio.impostaStanzaAdiacente("nord", biblioteca);

@@ -3,6 +3,7 @@ package it.uniroma3.diadia;
 import java.io.*;
 import java.util.*;
 
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -147,7 +148,7 @@ public class CaricatoreLabirinto {
 				check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("le uscite di una stanza."));
 				String stanzaPartenza = scannerDiLinea.next();
 				check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("la direzione di una uscita della stanza "+stanzaPartenza));
-				String dir = scannerDiLinea.next();
+				Direzioni dir = scannerDiLinea.next();   // non so come risolverlo
 				check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("la destinazione di una uscita della stanza "+stanzaPartenza+" nella direzione "+dir));
 				String stanzaDestinazione = scannerDiLinea.next();
 
@@ -160,7 +161,7 @@ public class CaricatoreLabirinto {
 		return "Terminazione precoce del file prima di leggere "+msg;
 	}
 
-	private void impostaUscita(String stanzaDa, String dir, String nomeA) throws FormatoFileNonValidoException {
+	private void impostaUscita(String stanzaDa, Direzioni dir, String nomeA) throws FormatoFileNonValidoException {
 		check(isStanzaValida(stanzaDa),"Stanza di partenza sconosciuta "+dir);
 		check(isStanzaValida(nomeA),"Stanza di destinazione sconosciuta "+ dir);
 		Stanza partenzaDa = this.nome2stanza.get(stanzaDa);

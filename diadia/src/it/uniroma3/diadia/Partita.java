@@ -3,6 +3,7 @@ package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Labirinto;
 // import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -16,6 +17,8 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 
 public class Partita {
 
+	private  Direzioni Nord;
+	private  Direzioni Sud;
 	private Labirinto labirinto;	// nuova variabile di istanza labirinto
 	private Giocatore giocatore;	// nuova variabile di istanza giocatore
 	private Stanza stanzaCorrente;
@@ -29,9 +32,9 @@ public class Partita {
 				 .addStanzaIniziale("LabCampusOne")
 				 .addStanzaVincente("Biblioteca")
 				 .addStanza("N11")
-				 .addAdiacenza("LabCampusOne","Biblioteca","nord")	// prima era ovest
-				 .addAdiacenza("LabCampusOne","N11","sud")
-				 .addAdiacenza("N11","LabCampusOne","nord")
+				 .addAdiacenza("LabCampusOne","Biblioteca",Nord)	// prima era ovest
+				 .addAdiacenza("LabCampusOne","N11",Sud)
+				 .addAdiacenza("N11","LabCampusOne",Nord)
 				 .getLabirinto();// creazione riferimento di un'istanza Labirinto
 		stanzaCorrente = labirinto.getStanzaIniziale();		// prendo da labirinto l'informazione della stanza dove il gioco inizia
 		stanzaVincente = labirinto.getStanzaVincente();		// prendo da labirinto l'informazione della stanza vincente

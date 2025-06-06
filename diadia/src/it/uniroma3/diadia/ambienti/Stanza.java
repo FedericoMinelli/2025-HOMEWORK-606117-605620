@@ -25,7 +25,7 @@ public class Stanza {
 	private String nome;
 
 	private Map<String, Attrezzo> attrezzi;
-	private Map<String, Stanza> stanzeAdiacenti;		// K = nome direzione, V = stanza corrispondente
+	private Map<Direzioni, Stanza> stanzeAdiacenti;		// K = nome direzione, V = stanza corrispondente
 
 	private AbstractPersonaggio personaggio;
 	/**
@@ -45,7 +45,7 @@ public class Stanza {
 	 * @param direzione direzione in cui sara' posta la stanza adiacente.
 	 * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
 	 */
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+	public void impostaStanzaAdiacente(Direzioni direzione, Stanza stanza) {
 		this.stanzeAdiacenti.put(direzione, stanza);
 	}
 
@@ -53,7 +53,7 @@ public class Stanza {
 	 * Restituisce la stanza adiacente nella direzione specificata
 	 * @param direzione
 	 */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzioni direzione) {
 		return this.stanzeAdiacenti.get(direzione);
 	}
 
@@ -108,7 +108,7 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : this.getDirezioni())		// trasformo direzioni in una collezione generica iterabile di tipo String
+		for (Direzioni direzione : this.getDirezioni())		// trasformo direzioni in una collezione generica iterabile di tipo String
 			if (direzione!=null)
 				risultato.append(" " + direzione);
 		risultato.append("\nAttrezzi nella stanza: ");
@@ -152,11 +152,11 @@ public class Stanza {
 //		return new HashSet<String>(this.stanzeAdiacenti.keySet());
 //	}
 	
-	public List<String> getDirezioni() {
-		return new ArrayList<String>(this.stanzeAdiacenti.keySet());
+	public List<Direzioni> getDirezioni() {
+		return new ArrayList<Direzioni>(this.stanzeAdiacenti.keySet());
 	}
 	
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzioni, Stanza> getMapStanzeAdiacenti() {
 		return this.stanzeAdiacenti;
 	}
 	

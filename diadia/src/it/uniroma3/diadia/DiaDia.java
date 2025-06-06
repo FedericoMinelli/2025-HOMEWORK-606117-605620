@@ -2,6 +2,7 @@ package it.uniroma3.diadia;
 
 import java.util.Scanner;
 
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.AbstractComando;
 import it.uniroma3.diadia.comandi.*;
@@ -30,6 +31,9 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
+
+
+	private static Direzioni ovest;
 
 	
 	private Partita partita;
@@ -82,7 +86,7 @@ public class DiaDia {
 		Labirinto labirinto = Labirinto.newBuilder()
 				 .addStanzaIniziale("LabCampusOne")
 				 .addStanzaVincente("Biblioteca")
-				 .addAdiacenza("LabCampusOne","Biblioteca","ovest")
+				 .addAdiacenza("LabCampusOne","Biblioteca",ovest)
 				 .getLabirinto();
 				 
 		DiaDia gioco = new DiaDia(labirinto, io);			

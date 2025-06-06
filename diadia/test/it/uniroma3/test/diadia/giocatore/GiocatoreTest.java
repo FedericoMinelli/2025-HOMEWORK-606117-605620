@@ -73,5 +73,8 @@ class GiocatoreTest {
 		this.giocatore.giocatoreAddAttrezzo(spada);
 		assertEquals(10, this.giocatore.getPesoBorsa());
 	}
-
+	@Test 
+	void testCFUCorretti(){
+		assertEquals(20, this.giocatore.getCfu());
+	}
 }
