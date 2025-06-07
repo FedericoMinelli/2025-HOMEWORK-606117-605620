@@ -33,7 +33,7 @@ public class DiaDia {
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 
 
-	private static Direzioni ovest;
+	private static Direzioni ovest = Direzioni.Ovest;
 
 	
 	private Partita partita;
@@ -57,7 +57,8 @@ public class DiaDia {
 				
 		do		
 			istruzione = this.io.leggiRiga();
-		while (!processaIstruzione(istruzione));  // se processaIstruzione returna false allora può essere letto un altro comando	
+		while (!processaIstruzione(istruzione));// se processaIstruzione returna false allora può essere letto un altro comando	
+		this.io.mostraMessaggio("Grazie di aver giocato!");
 	}   
 
 	/**

@@ -31,8 +31,13 @@ public class Labirinto {
 	private Attrezzo osso;
 	private Attrezzo pietra; // prova
 	
+	@SuppressWarnings("unused")
+	private Labirinto(boolean conInit) {
+		if(conInit)
+			init();
+	}
 	private Labirinto() {
-		init();
+		// non chiama init()
 	}
 	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
 		CaricatoreLabirinto c =

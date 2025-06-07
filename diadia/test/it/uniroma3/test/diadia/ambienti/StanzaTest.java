@@ -14,7 +14,7 @@ class StanzaTest {
 	private Stanza stanza;
 	private Attrezzo spada;
 	private Attrezzo osso;
-	private Direzioni nord;
+	private Direzioni nord = Direzioni.Nord;
 
 	@BeforeEach
 	void setUp() throws Exception {

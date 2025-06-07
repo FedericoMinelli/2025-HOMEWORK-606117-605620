@@ -42,9 +42,14 @@ public class IOSimulator implements IO{
 	 * returna una casella dell'array di righe da leggere 
 	 * */
 	public String leggiRiga() {
-		String rigaLetta = this.righeDaLeggere.get(this.indiceRighe);
-		this.indiceRighe++;
-		return rigaLetta;
+		if(this.indiceRighe<this.righeDaLeggere.size()) {
+			String rigaLetta = this.righeDaLeggere.get(this.indiceRighe);
+			this.indiceRighe++;
+			return rigaLetta;
+		}
+		else {
+			return "fine";
+		}
 	}
 	
 	/*

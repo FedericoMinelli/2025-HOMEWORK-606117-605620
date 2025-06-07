@@ -8,22 +8,20 @@ public class ComandoVai extends AbstractComando{
 	
 	private static final String NOME = "vai";
 	private Direzioni direzione;	// parametro	
-	private String parametro;
-		
-	
 	
 	public ComandoVai(Direzioni direzione) {
 		super(NOME, direzione);
 		this.direzione = direzione;
 	}
-	
-	public ComandoVai(String parametro) {
-		super(parametro);
+	public ComandoVai() {
+		super("vai");
 	}
+	
+	
 
 	@Override
 	public void esegui(Partita partita) {
-		this.direzione = super.getDirezione();		// ho cambiato questa riga in questo modo perchè ho cambiato il costruttore
+		
 		
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza prossimaStanza = null;
@@ -44,6 +42,15 @@ public class ComandoVai extends AbstractComando{
 		partita.setStanzaCorrente(prossimaStanza);
 		super.getIO().mostraMessaggio(partita.getStanzaCorrente().getNome());
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
+	}
+	@Override
+	public void setParametro(String nuovoParametro) {
+		super.setParametro(nuovoParametro);
+		try {
+			this.direzione = Direzioni.valueOf(nuovoParametro.toUpperCase());
+		} catch (Exception e) {
+			this.direzione = null;
+		}
 	}
 
 }

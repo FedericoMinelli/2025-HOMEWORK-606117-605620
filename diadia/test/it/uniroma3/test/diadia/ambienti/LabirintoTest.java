@@ -26,10 +26,10 @@ class LabirintoTest {
 	private String nomeStanzaIniziale = "Atrio";
 	private String nomeStanzaVincente = "Uscita";
 	private Labirinto labirinto;
-	private Direzioni ovest;
-	private Direzioni nord;
-	private Direzioni sud;
-	private Direzioni est;
+	private Direzioni ovest = Direzioni.Ovest;
+	private Direzioni nord = Direzioni.Nord;
+	private Direzioni sud = Direzioni.Sud;
+	private Direzioni est = Direzioni.Est;
 	@BeforeEach
 	void setUp() throws Exception {
 		
@@ -120,8 +120,8 @@ class LabirintoTest {
 				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, sud)
 				.getLabirinto();
 		assertEquals(bilocale.getStanzaVincente(),bilocale.getStanzaIniziale().getStanzaAdiacente(nord));
-		assertEquals(Collections.singletonList("nord"),bilocale.getStanzaIniziale().getDirezioni());
-		assertEquals(Collections.singletonList("sud"),bilocale.getStanzaVincente().getDirezioni());
+		assertEquals(Collections.singletonList(nord),bilocale.getStanzaIniziale().getDirezioni());
+		assertEquals(Collections.singletonList(sud),bilocale.getStanzaVincente().getDirezioni());
 	}
 	
 	@Test
@@ -171,11 +171,11 @@ class LabirintoTest {
 		//assertNull(maze.getStanzaIniziale().getStanzaAdiacente("nord-est"));
 		assertTrue(maze.getStanzaIniziale().getMapStanzeAdiacenti().size()<=4);
 		assertTrue(!maze.getStanzaIniziale().getMapStanzeAdiacenti().containsValue(test));
-		Map<String,Stanza> mappa = new HashMap<>();
-		mappa.put("nord", new Stanza("stanza 1"));
-		mappa.put("ovest", new Stanza("stanza 2"));
-		mappa.put("sud", new Stanza("stanza 3"));
-		mappa.put("est", new Stanza("stanza 4"));
+		Map<Direzioni,Stanza> mappa = new HashMap<>();
+		mappa.put(nord, new Stanza("stanza 1"));
+		mappa.put(ovest, new Stanza("stanza 2"));
+		mappa.put(sud, new Stanza("stanza 3"));
+		mappa.put(est, new Stanza("stanza 4"));
 		assertEquals(mappa,maze.getStanzaIniziale().getMapStanzeAdiacenti());
 	}
 	
@@ -374,11 +374,11 @@ class LabirintoTest {
 		Stanza corridoio = labirintoCompleto.getStanzaIniziale().getStanzaAdiacente(nord);
 		assertEquals("corridoio",corridoio.getNome());
 		assertTrue(corridoio.getDirezioni().containsAll(Arrays.asList(ovest,est,nord,sud)));
-		Map<String,Stanza> mapAdiacenti = new HashMap<>();
-		mapAdiacenti.put("nord",new Stanza("corridoio bloccato"));
-		mapAdiacenti.put("sud",new Stanza(nomeStanzaIniziale));
-		mapAdiacenti.put("est",new Stanza("stanza magica"));
-		mapAdiacenti.put("ovest",new Stanza("stanza buia"));
+		Map<Direzioni,Stanza> mapAdiacenti = new HashMap<>();
+		mapAdiacenti.put(nord,new Stanza("corridoio bloccato"));
+		mapAdiacenti.put(sud,new Stanza(nomeStanzaIniziale));
+		mapAdiacenti.put(est,new Stanza("stanza magica"));
+		mapAdiacenti.put(ovest,new Stanza("stanza buia"));
 		assertEquals(mapAdiacenti,corridoio.getMapStanzeAdiacenti());
 		Attrezzo a1 = new Attrezzo("chiave",1);
 		Attrezzo a2 = new Attrezzo("lanterna",1);

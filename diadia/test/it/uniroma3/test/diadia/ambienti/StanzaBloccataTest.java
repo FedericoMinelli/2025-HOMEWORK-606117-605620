@@ -16,8 +16,8 @@ class StanzaBloccataTest {
 	private Stanza sgabuzzino;
 	private Stanza sbloccata;
 	private Attrezzo chiave;
-	private Direzioni nord;
-	private Direzioni sud;
+	private Direzioni nord = Direzioni.Nord ;
+	private Direzioni sud = Direzioni.Sud;
 	
 	@BeforeEach
 	void setUp() throws Exception {

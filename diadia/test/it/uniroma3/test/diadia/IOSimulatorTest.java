@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IOSimulator;
+import it.uniroma3.diadia.ambienti.Direzioni;
+import it.uniroma3.diadia.ambienti.Labirinto;
 
 class IOSimulatorTest {
 
@@ -18,21 +20,32 @@ class IOSimulatorTest {
 
 	@Test
 	void test_SimulazioneVinta() {
-		this.comandi = new ArrayList<>(List.of("vai nord"));
+		this.comandi = new ArrayList<>(List.of("vai ovest"));
 		this.io = new IOSimulator(comandi);
-		
-		DiaDia gioco = new DiaDia(io);		// avvio una partita simulata 
+
+		Labirinto labirinto = Labirinto.newBuilder()
+			.addStanzaIniziale("LabCampusOne")
+			.addStanzaVincente("Biblioteca")
+			.addAdiacenza("LabCampusOne", "Biblioteca", Direzioni.Ovest)
+			.getLabirinto();
+
+		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
-		
-		// vado a cercare l'ultimo messaggio che è quello
-		// che mi fa capire come si è concluso il gioco
-		String messFinale = new String();		
+
+		boolean trovatoMessaggioVittoria = false;
+		String ultimo = "";
+
 		while(io.hasMessaggio()) {
-			messFinale = io.nextMessaggio();
+			String msg = io.nextMessaggio();
+			if (msg.equals("Hai vinto!"))
+				trovatoMessaggioVittoria = true;
+			ultimo = msg;
 		}
-		
-		assertEquals("Hai vinto!", messFinale);
+
+		assertTrue(trovatoMessaggioVittoria, "Non è stato stampato il messaggio di vittoria");
+		assertEquals("Grazie di aver giocato!", ultimo);
 	}
+	
 	
 	@Test
 	void test_SimulazionePersaConComandoFine() {

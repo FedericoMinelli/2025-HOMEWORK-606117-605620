@@ -17,8 +17,8 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 
 public class Partita {
 
-	private  Direzioni Nord;
-	private  Direzioni Sud;
+	private  Direzioni Nord = Direzioni.Nord;
+	private  Direzioni Sud = Direzioni.Sud;
 	private Labirinto labirinto;	// nuova variabile di istanza labirinto
 	private Giocatore giocatore;	// nuova variabile di istanza giocatore
 	private Stanza stanzaCorrente;
@@ -71,7 +71,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (giocatore.getCfu() == 0);
+		return this.finita || this.vinta() || this.giocatore.getCfu() == 0;
 	}
 
 	// aggiunto getter di labirinto

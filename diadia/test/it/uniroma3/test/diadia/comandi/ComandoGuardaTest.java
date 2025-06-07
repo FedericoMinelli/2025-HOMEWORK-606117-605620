@@ -1,7 +1,5 @@
 package it.uniroma3.test.diadia.comandi;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;

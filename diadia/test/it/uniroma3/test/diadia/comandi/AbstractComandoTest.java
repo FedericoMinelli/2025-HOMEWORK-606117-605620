@@ -5,11 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.comandi.*;
 
 class AbstractComandoTest {
 
 	private AbstractComando comando;
+	private Direzioni nord = Direzioni.Nord;
+	private Direzioni sud = Direzioni.Sud;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -65,17 +68,17 @@ class AbstractComandoTest {
 	
 	@Test
 	void testComandoVai() {
-		comando = new ComandoVai("nord");
+		comando = new ComandoVai(nord );
 		assertEquals("vai", comando.getNome());
-		assertEquals("nord", comando.getParametro());
+		assertEquals(nord, comando.getDirezione());
 	}
 	
 	@Test
 	void testComandoVai_CambioParametro() {
-		comando = new ComandoVai("nord");
-		assertEquals("nord", comando.getParametro());
-		comando.setParametro("sud");
-		assertEquals("sud", comando.getParametro());
+		comando = new ComandoVai(nord);
+		assertEquals(nord, comando.getDirezione());
+		comando.setDirezione(sud );
+		assertEquals(sud, comando.getDirezione());
 	}
 
 }

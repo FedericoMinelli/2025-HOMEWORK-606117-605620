@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.comandi.*;
 
 class FdCFisarmonicaTest {		// FdC è l'abbreviazione di FabbricaDiComandi
 
 	private AbstractComando comando;
+private Direzioni nord = Direzioni.Nord;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -17,13 +19,13 @@ class FdCFisarmonicaTest {		// FdC è l'abbreviazione di FabbricaDiComandi
 
 	@Test
 	void testGetNome_Vai() {
-		comando = new ComandoVai("nord");
+		comando = new ComandoVai(nord);
 		assertEquals("vai", comando.getNome());
 	}
 	@Test
 	void testGetParametro_Vai() {
-		comando = new ComandoVai("nord");
-		assertEquals("nord", comando.getParametro());
+		comando = new ComandoVai(nord);
+		assertEquals(nord, comando.getDirezione());
 	}
 	
 	@Test

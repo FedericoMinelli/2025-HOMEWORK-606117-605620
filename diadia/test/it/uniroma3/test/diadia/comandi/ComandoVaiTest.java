@@ -26,10 +26,10 @@ class ComandoVaiTest {
 	private ComandoVai vai2;
 	private ComandoGuarda guarda;
 	private IOConsole io;
-	private Direzioni nord;
-	private Direzioni sud;
-	private Direzioni ovest;
-	private Direzioni est;
+	private Direzioni nord = Direzioni.Nord;
+	private Direzioni sud = Direzioni.Sud;
+	private Direzioni ovest = Direzioni.Ovest;
+	private Direzioni est = Direzioni.Est;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -105,7 +105,7 @@ class ComandoVaiTest {
 		vai2.esegui(partita);		// mi sposto a sud, quindi nella stanza che ha una direzione bloccata
 		partita.getStanzaCorrente().addAttrezzo(new Attrezzo("chiave", 1));
 		guarda.esegui(partita);
-		vai2.setParametro("ovest");		// provo ad andare nella direzione bloccata
+		vai2.setDirezione(ovest);		// provo ad andare nella direzione bloccata
 		System.out.println("prova: "+vai2.getParametro());
 		vai2.esegui(partita);
 		assertEquals(stanza2, partita.getStanzaCorrente());

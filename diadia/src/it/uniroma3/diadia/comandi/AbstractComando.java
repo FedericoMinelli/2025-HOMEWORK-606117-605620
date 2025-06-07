@@ -38,6 +38,7 @@ public abstract class AbstractComando {
 	public String getParametro() {
 		return parametro;
 	}
+	
 	public void setParametro(String parametro) {
 		this.parametro = parametro;
 	}

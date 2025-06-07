@@ -13,6 +13,8 @@ class FabbricaDiComandiRiflessivaTest {
 	private FabbricaDiComandiRiflessiva fabbrica;
 	private AbstractComando comando;
 	
+	
+	
 	@BeforeEach
 	public void setUp() {
 		fabbrica = new FabbricaDiComandiRiflessiva();
@@ -54,7 +56,7 @@ class FabbricaDiComandiRiflessivaTest {
 	public void testComandoVaiConParametro() throws Exception {
 		comando = fabbrica.costruisciComando("vai nord");
 		assertEquals("vai", comando.getNome());
-		assertEquals("nord", comando.getParametro());
+		assertEquals("nord" , comando.getParametro()); // ho lasciato nord come stringa perchè getParametro si aspetta una stringa
 	}
 	
 	// ComandoPosa
