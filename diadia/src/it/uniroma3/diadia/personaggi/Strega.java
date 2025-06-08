@@ -6,7 +6,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.giocatore.Giocatore;
+
 
 public class Strega extends AbstractPersonaggio{
 	
@@ -52,7 +52,6 @@ public class Strega extends AbstractPersonaggio{
 
 	@Override
 	public String riceviRegalo(Attrezzo attrezzo, Partita partita) {
-		Giocatore giocatore = partita.getGiocatore();
 		partita.getStanzaCorrente().removeAttrezzo(attrezzo);
 		return MESSAGGIO_REGALO;
 	}

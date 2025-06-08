@@ -20,7 +20,7 @@ class IOSimulatorTest {
 
 	@Test
 	void test_SimulazioneVinta() {
-		this.comandi = new ArrayList<>(List.of("vai ovest"));
+		this.comandi = new ArrayList<>(List.of("vai Ovest"));
 		this.io = new IOSimulator(comandi);
 
 		Labirinto labirinto = Labirinto.newBuilder()
@@ -49,7 +49,7 @@ class IOSimulatorTest {
 	
 	@Test
 	void test_SimulazionePersaConComandoFine() {
-		this.comandi = new ArrayList<>(List.of("vai sud", "vai nord", "prendi", "guarda", "prendi osso", "fine"));
+		this.comandi = new ArrayList<>(List.of("vai Sud", "vai Nord", "prendi", "guarda", "prendi osso", "fine"));
 		this.io = new IOSimulator(comandi);
 		
 		DiaDia gioco = new DiaDia(io);
@@ -67,10 +67,10 @@ class IOSimulatorTest {
 	
 	@Test
 	void test_SimulazionePersaPerCFU() {
-		this.comandi = new ArrayList<>(List.of("vai sud", "vai nord", "vai sud", "vai nord", "vai sud", 
-									"vai nord", "vai sud", "vai nord", "vai sud", "vai nord",
-									"vai sud", "vai nord", "vai sud", "vai nord", "vai sud",
-									"vai nord", "vai sud", "vai nord", "vai sud", "vai nord"));
+		this.comandi = new ArrayList<>(List.of("vai Sud", "vai Nord", "vai Sud", "vai Nord", "vai Sud", 
+									"vai Nord", "vai Sud", "vai Nord", "vai Sud", "vai Nord",
+									"vai Sud", "vai Nord", "vai Sud", "vai Nord", "vai Sud",
+									"vai Nord", "vai Sud", "vai Nord", "vai Sud", "vai Nord"));
 		this.io = new IOSimulator(comandi);
 		
 		DiaDia gioco = new DiaDia(io);
@@ -78,12 +78,14 @@ class IOSimulatorTest {
 		
 		// vado a cercare l'ultimo messaggio che è quello
 		// che mi fa capire come si è concluso il gioco
-		String messFinale = new String();		
+		String messFinale = new String();
+		String penultimoMess = new String();
 		while(io.hasMessaggio()) {
+			penultimoMess = messFinale;
 			messFinale = io.nextMessaggio();
 		}
 		
-		assertEquals("CFU esauriti, hai perso...", messFinale);
+		assertEquals("CFU esauriti, hai perso...", penultimoMess);
 	}
 
 }

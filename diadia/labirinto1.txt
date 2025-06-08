@@ -1,0 +1,11 @@
+Stanze: atrio
+Bloccate: 
+Buie: 
+Magiche: 
+Inizio: atrio
+Vincente: atrio
+Cane: 
+Mago: 
+Strega: 
+Attrezzi: 
+Uscite: 

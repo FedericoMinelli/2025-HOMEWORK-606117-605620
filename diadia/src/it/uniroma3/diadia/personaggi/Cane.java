@@ -7,13 +7,13 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 public class Cane extends AbstractPersonaggio{
 
 	private static final String MESSAGGIO_MORSO = "Aia, questo cane morde!";
-	private String cibo;
-	private Attrezzo attrezzoDelCane;
-	
-	public Cane(String nome, String present, String cibo, Attrezzo regalo) {
-		super(nome, present);
-		this.cibo = cibo;
-		this.attrezzoDelCane = regalo;
+	private static final String MESSAGGIO_REGALO = "Bau Bau, ecco a te il tuo nuovo attrezzo";
+	private static final String CIBO = "osso";
+	private static final Attrezzo ATTREZZO_CANE = new Attrezzo("pallina", 1);
+	private boolean attrezzoRegalato = false;
+
+	public Cane(String nome, String presentazione) {
+		super(nome, presentazione);
 	}
 
 	@Override
@@ -26,13 +26,23 @@ public class Cane extends AbstractPersonaggio{
 	@Override
 	public String riceviRegalo(Attrezzo attrezzo, Partita partita) {
 		Giocatore giocatore = partita.getGiocatore();
-		if(attrezzo.getNome().equals(this.cibo)) {
-			partita.getStanzaCorrente().addAttrezzo(this.attrezzoDelCane);
+		if(!attrezzoRegalato && attrezzo.getNome().equals(CIBO)) {
+			partita.getStanzaCorrente().addAttrezzo(ATTREZZO_CANE);
+			giocatore.giocatoreRemoveAttrezzo(attrezzo);
+			attrezzoRegalato = true;
+			return MESSAGGIO_REGALO;
 		}
 		else {
 			giocatore.setCfu(giocatore.getCfu()-1);
 			return MESSAGGIO_MORSO;
 		}
-		return null;
+	}
+	
+	public static String getCibo() {
+		return CIBO;
+	}
+
+	public static Attrezzo getAttrezzoCane() {
+		return ATTREZZO_CANE;
 	}
 }

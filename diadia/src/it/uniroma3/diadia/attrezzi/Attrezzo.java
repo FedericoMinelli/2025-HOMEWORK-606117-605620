@@ -13,7 +13,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  * @see Stanza
  * @version base
  */
-public class Attrezzo   implements Comparable<Attrezzo>{
+public class Attrezzo implements Comparable<Attrezzo>{
 
 	private String nome;
 	private int peso;

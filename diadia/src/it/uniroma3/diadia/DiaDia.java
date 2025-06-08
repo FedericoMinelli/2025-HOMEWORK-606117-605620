@@ -91,7 +91,11 @@ public class DiaDia {
 				 .getLabirinto();
 				 
 		DiaDia gioco = new DiaDia(labirinto, io);			
-		gioco.gioca();
-		scanner.close();
+		try {
+			gioco.gioca();
+		} finally {
+			scanner.close();
+		}
+		
 	}
 }

@@ -20,7 +20,7 @@ public class IOConsole implements IO{
 	public String leggiRiga() {
 		//Scanner scannerDiLinee = new Scanner(System.in);
 		String riga = ScannerDiLinne.nextLine();
-		ScannerDiLinne.close();		
+		//ScannerDiLinne.close();		
 		return riga;
 	}
 }

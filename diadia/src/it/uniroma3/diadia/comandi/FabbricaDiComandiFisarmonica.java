@@ -2,6 +2,8 @@ package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
+import it.uniroma3.diadia.ambienti.Direzioni;
+
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 	
 	@Override
@@ -20,7 +22,7 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 			comando = new ComandoNonValido();
 		
 		else if (nomeComando.equals("vai"))
-			comando = new ComandoVai(parametro);
+			comando = new ComandoVai(Direzioni.valueOf(parametro));
 		
 		else if (nomeComando.equals("prendi"))
 			comando = new ComandoPrendi(parametro);

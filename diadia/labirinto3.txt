@@ -1,0 +1,11 @@
+Stanze: atrio, uscita, corridoio, bloccata, magica
+Bloccate: bloccata Nord chiave
+Buie: corridoio torcia
+Magiche: magica
+Inizio: atrio
+Vincente: uscita
+Cane: 
+Mago: 
+Strega: 
+Attrezzi: 
+Uscite: atrio Nord corridoio, atrio Sud bloccata, bloccata Nord atrio, atrio Est magica

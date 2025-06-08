@@ -1,0 +1,11 @@
+Stanze: atrio, uscita, corridoio, cripta
+Bloccate: 
+Buie: 
+Magiche: 
+Inizio: atrio
+Vincente: uscita
+Cane: Fuffy atrio Bau bau grrr!
+Mago: Merlino cripta Salve esploratore!
+Strega: Morgana corridoio Hi hi hi 
+Attrezzi: 
+Uscite: atrio Nord corridoio, atrio Sud cripta

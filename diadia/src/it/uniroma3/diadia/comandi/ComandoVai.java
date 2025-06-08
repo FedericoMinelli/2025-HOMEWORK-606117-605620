@@ -14,14 +14,13 @@ public class ComandoVai extends AbstractComando{
 		this.direzione = direzione;
 	}
 	public ComandoVai() {
-		super("vai");
+		super(NOME);
 	}
 	
 	
 
 	@Override
 	public void esegui(Partita partita) {
-		
 		
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza prossimaStanza = null;
@@ -33,6 +32,7 @@ public class ComandoVai extends AbstractComando{
 		}
 		// controllo se esiste la stanza in cui si desidera andare
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
+		
 		if(prossimaStanza == null) {
 			super.getIO().mostraMessaggio("Direzione inesistente");
 			return;
@@ -43,14 +43,25 @@ public class ComandoVai extends AbstractComando{
 		super.getIO().mostraMessaggio(partita.getStanzaCorrente().getNome());
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
 	}
+	
 	@Override
 	public void setParametro(String nuovoParametro) {
 		super.setParametro(nuovoParametro);
 		try {
-			this.direzione = Direzioni.valueOf(nuovoParametro.toUpperCase());
+			this.direzione = Direzioni.valueOf(nuovoParametro);
 		} catch (Exception e) {
 			this.direzione = null;
 		}
+	}
+	
+	@Override
+	public void setDirezione(Direzioni direzione) {
+		this.direzione = direzione;
+	}
+	
+	@Override
+	public Direzioni getDirezione() {
+		return this.direzione;
 	}
 
 }

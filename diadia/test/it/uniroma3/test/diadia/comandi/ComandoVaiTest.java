@@ -85,10 +85,15 @@ class ComandoVaiTest {
 		Stanza stanza2 = new Stanza("non bloccata");
 		stanza2.impostaStanzaAdiacente(est, bloccata);
 		bloccata.impostaStanzaAdiacente(ovest, stanza2);
+		
+		guarda.esegui(partita);
 		vai2.esegui(partita);		// mi sposto a sud, quindi nella stanza che ha una direzione bloccata
 		guarda.esegui(partita);
-		vai2.setParametro("ovest");		// provo ad andare nella direzione bloccata
+		
+		vai2.setDirezione(ovest);		// provo ad andare nella direzione bloccata
+		System.out.println("direzione poco prima di esegui"+vai2.getDirezione());
 		vai2.esegui(partita);
+		
 		assertEquals(bloccata, partita.getStanzaCorrente());
 		assertSame(bloccata, partita.getStanzaCorrente());
 	}
@@ -106,7 +111,7 @@ class ComandoVaiTest {
 		partita.getStanzaCorrente().addAttrezzo(new Attrezzo("chiave", 1));
 		guarda.esegui(partita);
 		vai2.setDirezione(ovest);		// provo ad andare nella direzione bloccata
-		System.out.println("prova: "+vai2.getParametro());
+		System.out.println("prova2: "+vai2.getDirezione());
 		vai2.esegui(partita);
 		assertEquals(stanza2, partita.getStanzaCorrente());
 		assertSame(stanza2, partita.getStanzaCorrente());

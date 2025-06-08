@@ -19,6 +19,7 @@ public class Partita {
 
 	private  Direzioni Nord = Direzioni.Nord;
 	private  Direzioni Sud = Direzioni.Sud;
+	private Direzioni Ovest = Direzioni.Ovest;
 	private Labirinto labirinto;	// nuova variabile di istanza labirinto
 	private Giocatore giocatore;	// nuova variabile di istanza giocatore
 	private Stanza stanzaCorrente;

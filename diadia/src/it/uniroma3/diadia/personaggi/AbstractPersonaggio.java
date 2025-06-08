@@ -14,6 +14,10 @@ public abstract class AbstractPersonaggio {
 		this.haSalutato = false;
 	}
 	
+	public String getPresentazione() {
+		return presentazione;
+	}
+
 	public String getNome() {
 		return this.nome;
 	}

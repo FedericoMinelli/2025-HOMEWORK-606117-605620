@@ -39,13 +39,18 @@ public class Labirinto {
 	private Labirinto() {
 		// non chiama init()
 	}
-	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
-		CaricatoreLabirinto c =
-		new CaricatoreLabirinto(nomeFile);
-		c.carica();
-		this.stanzaIniziale = c.getStanzaIniziale();
-		this.stanzaVincente = c.getStanzaVincente();
+	public Labirinto(String nomeFile)  {
+		try {
+			CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
+			c.carica();
+			this.stanzaIniziale = c.getStanzaIniziale();
+			this.stanzaVincente = c.getStanzaVincente();
+		} catch(FormatoFileNonValidoException e) {
+			e.getStackTrace();
+		} catch(FileNotFoundException e) {
+			e.getStackTrace();
 		}
+	}
 	
 	/**
      * Crea tutte le stanze e le porte di collegamento
@@ -87,16 +92,16 @@ public class Labirinto {
 			this.stanze.put(vincente, ultimaStanzaAggiunta);
 			return this;
 		}
-		public LabirintoBuilder  addMago(String nome, String presentazione, Attrezzo attrezzo) {
-			Mago m = new Mago(nome, presentazione, attrezzo);
+		public LabirintoBuilder  addMago(String nome, String presentazione) {
+			Mago m = new Mago(nome, presentazione);
 			if(this.ultimaStanzaAggiunta==null)
 				return this;
 			this.ultimaStanzaAggiunta.setPersonaggio(m);
 			return this;
 		}
 
-		public LabirintoBuilder  addCane(String nome, String presentazione,String cibo, Attrezzo regalo) {
-			Cane c = new Cane(nome, presentazione,cibo,regalo);
+		public LabirintoBuilder  addCane(String nome, String presentazione) {
+			Cane c = new Cane(nome, presentazione);
 			if(this.ultimaStanzaAggiunta==null)
 				return this;
 			this.ultimaStanzaAggiunta.setPersonaggio(c);
